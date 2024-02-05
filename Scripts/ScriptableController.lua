@@ -95,27 +95,27 @@ function ScriptableController.server_onCreate(self)
                     end
                 end,
         
-                -- getAvailableBatteries = function ()
-                --     return (self.data and self.data.survival) and (self.batteries or 0) or math.huge
-                -- end,
-                -- getCharge = function ()
-                --     return self.energy
-                -- end,
-                -- getChargeDelta = function ()
-                --     return self.chargeDelta
-                -- end,
+                getAvailableBatteries = function ()
+                    return (self.data and self.data.survival) and (self.batteries or 0) or math.huge
+                end,
+                getCharge = function ()
+                    return self.energy
+                end,
+                getChargeDelta = function ()
+                    return self.chargeDelta
+                end,
                 isWorkAvailable = function ()
-                    -- if self.data and self.data.survival then
-                    --     if self.energy > 0 then
-                    --         return true
-                    --     end
+                    if self.data and self.data.survival then
+                        if self.energy > 0 then
+                            return true
+                        end
         
-                    --     if self.batteries and self.batteries > 0 then
-                    --         return true
-                    --     end
+                        if self.batteries and self.batteries > 0 then
+                            return true
+                        end
         
-                    --     return false
-                    -- end
+                        return false
+                    end
                     return true
                 end,
                 getBearingsCount = function ()
@@ -125,12 +125,12 @@ function ScriptableController.server_onCreate(self)
                     return self.pistonsCount or 0
                 end,
         
-                maxStrength = function ()
-                    return self.mImpulse
-                end,
-                maxVelocity = function ()
-                    return self.maxMasterVelocity
-                end,
+                -- maxStrength = function ()
+                --     return self.mImpulse
+                -- end,
+                -- maxVelocity = function ()
+                --     return self.maxMasterVelocity
+                -- end,
                 getChargeAdditions = function ()
                     return ScriptableController.chargeAdditions
                 end,
