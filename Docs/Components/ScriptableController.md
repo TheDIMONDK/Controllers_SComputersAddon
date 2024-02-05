@@ -36,89 +36,27 @@ The ScriptableController can be used to create automatic machinery and huge robo
 * scriptableController.setBearingAngle(id:number, length:number) - set the length of the piston at the specified index;
 
 
-### stable modes
-* 0 - no stabilization
-* 1 - small creation
-* 2 - medium creation
-* 3 - big creation
-* 4 - very big creation
+#### Code
 
+Simple example (2 connected bearings, and 2 connected pistons)
 ```lua
-local wasd = getComponent("wasd")
-local scriptableController = getComponent("scriptableController")
+controller = getComponents("scriptableController")[1]
+if controller == nil then return end
 
-scriptableController.setActive(true)
-scriptableController.setStableMode(1)
+-- Configuring
+controller.setVelocity(30)
+controller.setStrength(30)
+controller.setActive(true)
 
-local speed = 1
-local rotateSpeed = math.rad(5)
+-- Bearings
+controller.setBearingAngle(1, math.rad(math.random(140, 160)))
+controller.setBearingAngle(2, math.rad(220))
 
---------------------------
+-- Pistons
+controller.setPistonLength(1, 4)
+controller.setPistonLength(1, 10)
 
-local function up()
-    scriptableController.addPosition(sm.vec3.new(0, 0, speed))
-end
-
-local function down()
-    scriptableController.addPosition(sm.vec3.new(0, 0, -speed))
-end
-
-local function forward()
-    scriptableController.addPosition(sm.vec3.new(speed, 0, 0))
-end
-
-local function back()
-    scriptableController.addPosition(sm.vec3.new(-speed, 0, 0))
-end
-
-local function left()
-    scriptableController.addPosition(sm.vec3.new(0, speed, 0))
-end
-
-local function right()
-    scriptableController.addPosition(sm.vec3.new(0, -speed, 0))
-end
-
---------------------------
-
-local function _up()
-    scriptableController.addRotation(sm.vec3.new(0, -rotateSpeed, 0))
-end
-
-local function _down()
-    scriptableController.addRotation(sm.vec3.new(0, rotateSpeed, 0))
-end
-
-local function _left()
-    scriptableController.addRotation(sm.vec3.new(0, 0, rotateSpeed))
-end
-
-local function _right()
-    scriptableController.addRotation(sm.vec3.new(0, 0, -rotateSpeed))
-end
-
---------------------------
-
-function callback_loop()
-    if _endtick then
-        scriptableController.setActive(false)
-        return
-    end
-
-    if wasd.isSeated() then
-        forward()
-    end
-
-    if wasd.isW() then
-        _up()
-    elseif wasd.isS() then
-        _down()
-    end
-
-    if wasd.isA() then
-        _left()
-    elseif wasd.isD() then
-        _right()
-    end
-end
+print()
+print("Bearing index 1 angle in degrees: " .. math.deg(controller.getBearingAngle(1)))
+print("Bearings count: " .. controller.getBearingsCount() .. "; Pistons count: " .. controller.getPistonsCount())
 ```
