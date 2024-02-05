@@ -1,42 +1,18 @@
 {
-   "lodList" : [
-      {
-         "includes" : [
-            "POSITION",
-            "UV0",
-            "UV1",
-            "NORMAL",
-            "TANGENTS",
-            "BLEND_INDICES",
-            "BLEND_WEIGHTS"
-         ],
-         "mesh" : "$GAME_DATA/Objects/Mesh/interactive/obj_interactive_logicgate_off.fbx",
-         "minViewSize" : 20,
-         "pose0" : "$GAME_DATA/Objects/Mesh/interactive/obj_interactive_logicgate_on.fbx",
-         "subMeshList" : [
-            {
-               "material" : "PoseAnimDifAsgNor",
-               "textureList" : [
-                  "$MOD_DATA/Objects/Textures/ScriptableTexturesDif.tga",
-                  "$GAME_DATA/Objects/Textures/interactive/obj_interactive_logicgate_asg.tga",
-                  "$GAME_DATA/Objects/Textures/interactive/obj_interactive_logicgate_nor.tga"
-               ]
-            },
-            {
-               "custom" : {
-                  "uv0" : {
-                     "u" : 0.1666666716337204,
-                     "v" : 0.1644999980926514
-                  }
-               },
-               "material" : "UVAnimDifAsgNor",
-               "textureList" : [
-                  "$MOD_DATA/Objects/Textures/ScriptableTexturesDif.tga",
-                  "$GAME_DATA/Objects/Textures/interactive/obj_interactive_logicgate_asg.tga",
-                  "$GAME_DATA/Objects/Textures/interactive/obj_interactive_logicgate_nor.tga"
-               ]
-            }
-         ]
-      }
-   ]
+	"lodList": [
+		{
+			"minViewSize": 15,
+			"mesh": "$CONTENT_DATA/Objects/Mesh/obj_scriptableController.obj",
+			"subMeshList" : [
+				{
+				   "material" : "DifAsg",
+				   "textureList" : [
+					  "$MOD_DATA/Objects/Textures/obj_steppermotor_dif.png",
+					  "$MOD_DATA/Objects/Textures/obj_stepper_motor_asg.png",
+					  ""
+				   ]
+				}
+			]
+		}
+	]
 }

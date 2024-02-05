@@ -181,7 +181,7 @@ function ScriptableController.server_onCreate(self)
 
 	--sc.motorsDatas[self.interactable:getId()] = self:server_createData()
 
-	--sc.creativeCheck(self, self.energy == math.huge)
+	sc.creativeCheck(self, self.energy == math.huge)
 end
 
 function ScriptableController.server_onDestroy(self)
@@ -194,25 +194,25 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 
 	--------------------------------------------------------
 
-	-- local container
-	-- for _, parent in ipairs(self.interactable:getParents()) do
-	-- 	if parent:hasOutputType(sm.interactable.connectionType.electricity) then
-	-- 		container = parent:getContainer(0)
-	-- 		break
-	-- 	end
-	-- end
+	local container
+	for _, parent in ipairs(self.interactable:getParents()) do
+		if parent:hasOutputType(sm.interactable.connectionType.electricity) then
+			container = parent:getContainer(0)
+			break
+		end
+	end
 
-	-- self.batteries = self:sv_mathCount()
-	-- self.chargeDelta = 0
+	self.batteries = self:sv_mathCount()
+	self.chargeDelta = 0
 
 	--------------------------------------------------------
 
 	local active = self.isActive
-	if active then -- and self.energy <= 0 then
+	if active and self.energy <= 0 then
 		self:sv_removeItem()
-		-- if self.energy <= 0 then
-		-- 	active = nil
-		-- end
+		if self.energy <= 0 then
+			active = nil
+		end
 	end
 
 	if active then
@@ -234,12 +234,15 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 			end
 		end
 
-		-- if self.maxImpulse > 0 then
-		-- 	for k, v in pairs(self.interactable:getBearings()) do
-		-- 		self.chargeDelta = self.chargeDelta + math.abs(v:getAppliedImpulse())				
-		-- 	end
-		-- 	self.energy = self.energy - self.chargeDelta
-		-- end
+		if self.maxImpulse > 0 then
+			for k, v in pairs(self.interactable:getBearings()) do
+				self.chargeDelta = self.chargeDelta + math.abs(v:getAppliedImpulse())				
+			end
+			for k, v in pairs(self.interactable:getPistons()) do
+				self.chargeDelta = self.chargeDelta + math.abs(v:getAppliedImpulse())				
+			end
+			self.energy = self.energy - self.chargeDelta
+		end
 	elseif self.wasActive then
 		for k, v in pairs(self.interactable:getBearings()) do
 			v:setMotorVelocity(0, ScriptableController.nonActiveImpulse)
@@ -247,9 +250,9 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 	end
 	self.wasActive = active
 
-	-- if self.energy < 0 then
-	-- 	self.energy = 0
-	-- end
+	if self.energy < 0 then
+		self.energy = 0
+	end
 
 	local rpm = self.masterVelocity / self.maxMasterVelocity
 	local load = (self.chargeDelta / self.maxImpulse) / ((self.bearingsCount + self.pistonsCount) or self.bearingsCount or 0)
@@ -262,13 +265,13 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 			if self.soundtype == 1 then
 				lrpm = lload
 			end
-			-- self.network:sendToClients("cl_setEffectParams", {
-			-- 	rpm = lrpm,
-			-- 	load = lload,
-			-- 	soundtype = self.soundtype
-			-- })
+			self.network:sendToClients("cl_setEffectParams", {
+				rpm = lrpm,
+				load = lload,
+				soundtype = self.soundtype
+			})
 		else
-			-- self.network:sendToClients("cl_setEffectParams")
+			self.network:sendToClients("cl_setEffectParams")
 		end
 	end
 	self.old_active = active
@@ -276,35 +279,35 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 	self.old_load = load
 	self.old_type = self.soundtype
 
-	--sc.creativeCheck(self, self.energy == math.huge)
+	sm.sc.creativeCheck(self, self.energy == math.huge)
 end
 
 function ScriptableController:sv_removeItem()
-	-- for _, parent in ipairs(self.interactable:getParents()) do
-    --     if parent:hasOutputType(sm.interactable.connectionType.electricity) then
-	-- 		local container = parent:getContainer(0)
-	-- 		if sm.container.canSpend(container, obj_consumable_battery, 1) then
-	-- 			sm.container.beginTransaction()
-	-- 			sm.container.spend(container, obj_consumable_battery, 1, true)
-	-- 			if sm.container.endTransaction() then
-	-- 				--self.energy = self.energy + ScriptableController.chargeAdditions
-	-- 				break
-	-- 			end
-	-- 		end
-	-- 	end
-	-- end
+	for _, parent in ipairs(self.interactable:getParents()) do
+        if parent:hasOutputType(sm.interactable.connectionType.electricity) then
+			local container = parent:getContainer(0)
+			if sm.container.canSpend(container, obj_consumable_battery, 1) then
+				sm.container.beginTransaction()
+				sm.container.spend(container, obj_consumable_battery, 1, true)
+				if sm.container.endTransaction() then
+					self.energy = self.energy + ScriptableController.chargeAdditions
+					break
+				end
+			end
+		end
+	end
 end
 
 function ScriptableController:sv_mathCount()
     local count = 0
-    -- for _, parent in ipairs(self.interactable:getParents()) do
-    --     if parent:hasOutputType(sm.interactable.connectionType.electricity) then
-    --         local container = parent:getContainer(0)
-    --         for i = 0, container.size - 1 do
-    --             count = count + (container:getItem(i).quantity)
-    --         end
-	-- 	end
-	-- end
+    for _, parent in ipairs(self.interactable:getParents()) do
+        if parent:hasOutputType(sm.interactable.connectionType.electricity) then
+            local container = parent:getContainer(0)
+            for i = 0, container.size - 1 do
+                count = count + (container:getItem(i).quantity)
+            end
+		end
+	end
     return count
 end
 
