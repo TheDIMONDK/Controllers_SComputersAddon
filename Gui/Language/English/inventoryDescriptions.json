@@ -6,6 +6,23 @@
       "title" : "Black plate block"
    },
    "f8bb0545-213a-46b6-889b-38ee51ef68c5" : {
-      "title" : "Scriptable Controller (CREATIVE)"
+      "title" : "Scriptable Controller",
+      "description" : "#ffd54cMax velocity: #ffeaa575\n#ffd54cMax strength: #ffeaa575\n\n#939393It can be used to create automatic machinery and huge robots.\nIt also makes it possible to rotate the specified bearings and change the length of the specified connected pistons!",
+      "keywords" : ["scontroller", "s controller", "lua"]
+   },
+   "5442660a-2b67-4ef0-aef0-c4d1aa3fdd84" : {
+      "title" : "#f002a8Creative Scriptable Controller#eeeeee",
+      "description" : "#ffd54cMax velocity: #ffeaa510000\n#ffd54cMax strength: #ffeaa510000\n\n#939393It can be used to create automatic machinery and huge robots.\nIt also makes it possible to rotate the specified bearings and change the length of the specified connected pistons!",
+      "keywords" : ["scontroller", "s controller", "lua"]
+   },
+   "b163cb0a-ab54-4739-a59f-889a5a3cc694" : {
+      "title" : "Mini Scriptable Controller",
+      "description" : "#ffd54cMax velocity: #ffeaa575\n#ffd54cMax strength: #ffeaa575\n\n#CFCFCFSmall, but strong! #939393It can be used to create automatic machinery and huge robots.\nIt also makes it possible to rotate the specified bearings and change the length of the specified connected pistons!",
+      "keywords" : ["scontroller", "s controller", "lua"]
+   },
+   "769ea2b9-ea8b-4569-a77d-69d9060fcbcf" : {
+      "title" : "#f002a8Creative Mini Scriptable Controller#eeeeee",
+      "description" : "#ffd54cMax velocity: #ffeaa510000\n#ffd54cMax strength: #ffeaa510000\n\n#CFCFCFSmall, but strong! #939393It can be used to create automatic machinery and huge robots.\nIt also makes it possible to rotate the specified bearings and change the length of the specified connected pistons!",
+      "keywords" : ["scontroller", "s controller", "lua"]
    }
 }

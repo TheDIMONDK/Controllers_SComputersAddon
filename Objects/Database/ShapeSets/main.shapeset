@@ -1,9 +1,9 @@
 {
    "blockList" : [
       {
-         "asg" : "",
+         "asg" : "$GAME_DATA/Textures/Default/default_asg.tga",
          "dif" : "$CONTENT_DATA/Objects/Textures/blackPlateBlock_dif.tga",
-         "nor" : "",
+         "nor" : "$GAME_DATA/Textures/Default/default_nor.tga",
          "physicsMaterial" : "Metal",
          "tiling" : 8,
          "uuid" : "ef489e2f-e31f-4c35-9a6b-1bf2bc0d23e3"
@@ -22,11 +22,75 @@
          "rotationSet" : "PropYZ",
          "scripted" : {
             "classname" : "ScriptableController",
+            "data" : {
+               "i" : 75,
+               "v" : 75,
+               "survival" : true
+            },
             "filename" : "$CONTENT_DATA/Scripts/ScriptableController.lua"
          },
-         "stackSize" : 10,
+         "stackSize" : 6,
          "sticky" : "-X+X-Y+Y-Z+Z",
          "uuid" : "f8bb0545-213a-46b6-889b-38ee51ef68c5"
+      },
+      {
+         "box" : {
+            "x" : 2,
+            "y" : 2,
+            "z" : 2
+         },
+         "color" : "c400a6",
+         "physicsMaterial" : "Mechanical",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/ScriptableController.rend",
+         "rotationSet" : "PropYZ",
+         "scripted" : {
+            "classname" : "ScriptableController",
+            "filename" : "$CONTENT_DATA/Scripts/ScriptableController.lua"
+         },
+         "stackSize" : 6,
+         "sticky" : "-X+X-Y+Y-Z+Z",
+         "uuid" : "5442660a-2b67-4ef0-aef0-c4d1aa3fdd84"
+      },
+      {
+         "box" : {
+            "x" : 1,
+            "y" : 1,
+            "z" : 1
+         },
+         "color" : "01b09d",
+         "physicsMaterial" : "Mechanical",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/ScriptableController_mini.rend",
+         "rotationSet" : "PropYZ",
+         "scripted" : {
+            "classname" : "ScriptableController",
+            "data" : {
+               "i" : 75,
+               "v" : 75,
+               "survival" : true
+            },
+            "filename" : "$CONTENT_DATA/Scripts/ScriptableController.lua"
+         },
+         "stackSize" : 6,
+         "sticky" : "-X+X-Y+Y-Z+Z",
+         "uuid" : "b163cb0a-ab54-4739-a59f-889a5a3cc694"
+      },
+      {
+         "box" : {
+            "x" : 1,
+            "y" : 1,
+            "z" : 1
+         },
+         "color" : "c400a6",
+         "physicsMaterial" : "Mechanical",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/ScriptableController_mini.rend",
+         "rotationSet" : "PropYZ",
+         "scripted" : {
+            "classname" : "ScriptableController",
+            "filename" : "$CONTENT_DATA/Scripts/ScriptableController.lua"
+         },
+         "stackSize" : 6,
+         "sticky" : "-X+X-Y+Y-Z+Z",
+         "uuid" : "769ea2b9-ea8b-4569-a77d-69d9060fcbcf"
       }
    ]
 }

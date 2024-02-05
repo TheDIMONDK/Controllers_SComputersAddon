@@ -5,23 +5,10 @@ ScriptableController.connectionInput = sm.interactable.connectionType.composite 
 ScriptableController.connectionOutput = sm.interactable.connectionType.bearing + sm.interactable.connectionType.piston
 ScriptableController.colorNormal = sm.color.new(0x00b3a4ff)
 ScriptableController.colorHighlight = sm.color.new(0x1bdeceff)
-ScriptableController.componentType = "ScriptableController"
-
--- function ScriptableController:server_onCreate()
---     self.interactable.publicData = {
---         sc_component = {
---             type = ScriptableController.componentType,
---             api = {
---                 test = function()
---                     return "ok"
---                 end
---             }
---         }
---     }
--- end
+ScriptableController.componentType = "scriptableController"
 
 ScriptableController.nonActiveImpulse = 0
--- ScriptableController.chargeAdditions = 200000
+ScriptableController.chargeAdditions = 200000
 
 -- SERVER --
 
@@ -144,9 +131,9 @@ function ScriptableController.server_onCreate(self)
                 maxVelocity = function ()
                     return self.maxMasterVelocity
                 end,
-                -- getChargeAdditions = function ()
-                --     return ScriptableController.chargeAdditions
-                -- end,
+                getChargeAdditions = function ()
+                    return ScriptableController.chargeAdditions
+                end,
                 setSoundType = function (num)
                     checkArg(1, num, "number")
                     self.soundtype = num
@@ -163,12 +150,13 @@ function ScriptableController.server_onCreate(self)
 	self.soundtype = 1
 	self.maxMasterVelocity = 10000
 	self.mImpulse = 10000
-	--self.energy = math.huge
-	-- if self.data and self.data.survival then
-	-- 	self.maxMasterVelocity = self.data.v or 500
-	-- 	self.mImpulse = self.data.i or 1000
-	-- 	self.energy = 0
-	-- end
+	self.energy = math.huge
+	self.energy = math.huge
+	if self.data and self.data.survival then
+		self.maxMasterVelocity = self.data.v or 500
+		self.mImpulse = self.data.i or 1000
+		self.energy = 0
+	end
 
 	self.masterVelocity = 0
 	self.maxImpulse = 0
@@ -181,7 +169,7 @@ function ScriptableController.server_onCreate(self)
 
 	--sc.motorsDatas[self.interactable:getId()] = self:server_createData()
 
-	sc.creativeCheck(self, self.energy == math.huge)
+	sm.sc.creativeCheck(self, self.energy == math.huge)
 end
 
 function ScriptableController.server_onDestroy(self)
@@ -239,7 +227,7 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 				self.chargeDelta = self.chargeDelta + math.abs(v:getAppliedImpulse())				
 			end
 			for k, v in pairs(self.interactable:getPistons()) do
-				self.chargeDelta = self.chargeDelta + math.abs(v:getAppliedImpulse())				
+				self.chargeDelta = self.chargeDelta + 1				
 			end
 			self.energy = self.energy - self.chargeDelta
 		end
