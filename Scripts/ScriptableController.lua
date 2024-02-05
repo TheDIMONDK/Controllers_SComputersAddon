@@ -8,7 +8,7 @@ ScriptableController.colorHighlight = sm.color.new(0x1bdeceff)
 ScriptableController.componentType = "scriptableController"
 
 ScriptableController.nonActiveImpulse = 0
-ScriptableController.chargeAdditions = 200000
+ScriptableController.chargeAdditions = 50000
 
 -- SERVER --
 
@@ -159,7 +159,6 @@ function ScriptableController.server_onCreate(self)
 	self.maxMasterVelocity = 10000
 	self.mImpulse = 10000
 	self.energy = math.huge
-	self.energy = math.huge
 	if self.data and self.data.survival then
 		self.maxMasterVelocity = self.data.v or 500
 		self.mImpulse = self.data.i or 1000
@@ -235,7 +234,7 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 				self.chargeDelta = self.chargeDelta + math.abs(v:getAppliedImpulse())				
 			end
 			for k, v in pairs(self.interactable:getPistons()) do
-				self.chargeDelta = self.chargeDelta + 1				
+				self.chargeDelta = self.chargeDelta + math.abs(v:getLength() * self.maxImpulse)			
 			end
 			self.energy = self.energy - self.chargeDelta
 		end
@@ -279,10 +278,12 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 end
 
 function ScriptableController:sv_removeItem()
+	obj_consumable_battery = sm.uuid.new("910a7f2c-52b0-46eb-8873-ad13255539af")
+	
 	for _, parent in ipairs(self.interactable:getParents()) do
         if parent:hasOutputType(sm.interactable.connectionType.electricity) then
 			local container = parent:getContainer(0)
-			if sm.container.canSpend(container, obj_consumable_battery, 1) then
+			if container:canSpend(obj_consumable_battery, 1) then
 				sm.container.beginTransaction()
 				sm.container.spend(container, obj_consumable_battery, 1, true)
 				if sm.container.endTransaction() then
