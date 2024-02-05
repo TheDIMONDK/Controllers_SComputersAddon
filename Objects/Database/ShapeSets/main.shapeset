@@ -5,7 +5,7 @@
          "dif" : "$CONTENT_DATA/Objects/Textures/blackPlateBlock_dif.tga",
          "nor" : "$GAME_DATA/Textures/Default/default_nor.tga",
          "physicsMaterial" : "Metal",
-         "tiling" : 8,
+         "tiling" : 4,
          "uuid" : "ef489e2f-e31f-4c35-9a6b-1bf2bc0d23e3"
       }
    ],
