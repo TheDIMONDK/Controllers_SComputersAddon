@@ -54,7 +54,7 @@ controller.setBearingAngle(2, math.rad(220))
 
 -- Pistons
 controller.setPistonLength(1, 4)
-controller.setPistonLength(1, 10)
+controller.setPistonLength(2, 10)
 
 print()
 print("Bearing index 1 angle in degrees: " .. math.deg(controller.getBearingAngle(1)))

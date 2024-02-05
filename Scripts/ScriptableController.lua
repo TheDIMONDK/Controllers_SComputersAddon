@@ -45,7 +45,11 @@ function ScriptableController.server_onCreate(self)
                         if type(v) == "number" or type(v) == "nil" then
                             local val = v and sm.util.clamp(v, -3.402e+38, 3.402e+38) or nil
                             if self.bearingsAngle[id] == nil then
-                                table.insert(self.bearingsAngle, val)
+								if id <= self.bearingsCount then
+                                	table.insert(self.bearingsAngle, val)
+								else
+									error("Value of index must be less than or equal to the number of connected bearings")
+								end
     
                             else
                                 self.bearingsAngle[id] = val
@@ -66,7 +70,11 @@ function ScriptableController.server_onCreate(self)
                         if type(v) == "number" then
                             if v >= 0 then
                                 if self.pistonsLength[id] == nil then
-                                    table.insert(self.pistonsLength, v)
+									if id <= self.pistonsCount then
+										table.insert(self.pistonsLength, v)
+									else
+										error("Value of index must be less than or equal to the number of connected pistons")
+									end
         
                                 else
                                     self.pistonsLength[id] = val
