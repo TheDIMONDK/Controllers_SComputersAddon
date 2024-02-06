@@ -10,6 +10,19 @@ ScriptableController.componentType = "scriptableController"
 ScriptableController.nonActiveImpulse = 0
 ScriptableController.chargeAdditions = 50000
 
+-- COPIED FROM SCOMPUTERS FORK, NEED PUBLIC API OF THIS METHOD
+function checkArg(n, have, ...)
+	have = type(have)
+	local tbl = {...}
+	for _, t in ipairs(tbl) do
+		if have == t then
+			return
+		end
+	end
+	error(string_format("bad argument #%d (%s expected, got %s)", n, table_concat(tbl, " or "), have), 3)
+end
+
+
 -- SERVER --
 
 function ScriptableController.server_createData(self)
