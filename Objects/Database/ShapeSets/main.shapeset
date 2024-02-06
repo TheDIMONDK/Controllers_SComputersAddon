@@ -24,8 +24,8 @@
             "classname" : "ScriptableController",
             "data" : {
                "i" : 75,
-               "v" : 75,
-               "survival" : true
+               "survival" : true,
+               "v" : 75
             },
             "filename" : "$CONTENT_DATA/Scripts/ScriptableController.lua"
          },
@@ -65,8 +65,8 @@
             "classname" : "ScriptableController",
             "data" : {
                "i" : 75,
-               "v" : 75,
-               "survival" : true
+               "survival" : true,
+               "v" : 75
             },
             "filename" : "$CONTENT_DATA/Scripts/ScriptableController.lua"
          },
