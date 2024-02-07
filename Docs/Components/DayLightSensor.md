@@ -2,7 +2,7 @@
 title: dayLightSensor
 ---
 
-The DayLightSensor can be used to automate energy-saving systems and enhance security measures in structures. For instance, it enables the construction of solar-powered buildings that only consume energy during daylight hours, optimizing the use of resources. Additionally, it can be integrated into automated lighting systems, ensuring lights are only activated when necessary.
+The DayLightSensor can be used to automate energy-saving systems and enhance security measures in structures. For instance, it enables the construction of buildings that only consume energy during daylight hours, optimizing the use of resources. Additionally, it can be integrated into automated lighting systems, ensuring lights are only activated when necessary.
 
 ### DayLightSensor component
 * type - dayLightSensor;
