@@ -30,7 +30,28 @@ function ScriptableController.server_createData(self)
 end
 
 function ScriptableController.server_onCreate(self)
-        self.interactable.publicData = {
+	self.chargeDelta = 0
+	
+	self.soundtype = 1
+	self.maxMasterVelocity = 10000
+	self.mImpulse = 10000
+	self.energy = math.huge
+	if self.data and self.data.survival then
+		self.maxMasterVelocity = self.data.v or 500
+		self.mImpulse = self.data.i or 1000
+		self.energy = 0
+	end
+
+	self.masterVelocity = 0
+	self.maxImpulse = 0
+	self.bearingsAngle = {}
+	self.pistonsLength = {}
+	self.isActive = false
+	self.wasActive = false
+	self.bearingsCount = #self.interactable:getBearings()
+    self.pistonsCount = #self.interactable:getPistons()
+	
+	self.interactable.publicData = {
         sc_component = {
             type = ScriptableController.componentType,
             api = {
@@ -57,16 +78,15 @@ function ScriptableController.server_onCreate(self)
                     if type(id) == "number" then
                         if type(v) == "number" or type(v) == "nil" then
                             local val = v and sm.util.clamp(v, -3.402e+38, 3.402e+38) or nil
-                            if self.bearingsAngle[id] == nil then
-								if id <= self.bearingsCount then
-                                	table.insert(self.bearingsAngle, val)
+                            if id <= self.bearingsCount then
+								if self.bearingsAngle[id] == nil then
+									table.insert(self.bearingsAngle, val)
 								else
-									error("Value of index must be less than or equal to the number of connected bearings")
+									self.bearingsAngle[id] = val
 								end
-    
-                            else
-                                self.bearingsAngle[id] = val
-                            end
+							else
+								error(id .. " - Value of index must be less than or equal to the number of connected bearings")
+							end
                         else
                             error("Value of angle must be number or nil")
                         end
@@ -82,16 +102,15 @@ function ScriptableController.server_onCreate(self)
                     if type(id) == "number" then
                         if type(v) == "number" then
                             if v >= 0 then
-                                if self.pistonsLength[id] == nil then
-									if id <= self.pistonsCount then
+								if id <= self.pistonsCount then
+									if self.pistonsLength[id] == nil then
 										table.insert(self.pistonsLength, v)
 									else
-										error("Value of index must be less than or equal to the number of connected pistons")
+										self.pistonsLength[id] = val
 									end
-        
-                                else
-                                    self.pistonsLength[id] = val
-                                end
+								else
+									error(id .. " - Value of index must be less than or equal to the number of connected pistons")
+								end
 
                             else
                                 error("Value of length must be non-negative")
@@ -166,27 +185,6 @@ function ScriptableController.server_onCreate(self)
         }
     }
 
-	self.chargeDelta = 0
-	
-	self.soundtype = 1
-	self.maxMasterVelocity = 10000
-	self.mImpulse = 10000
-	self.energy = math.huge
-	if self.data and self.data.survival then
-		self.maxMasterVelocity = self.data.v or 500
-		self.mImpulse = self.data.i or 1000
-		self.energy = 0
-	end
-
-	self.masterVelocity = 0
-	self.maxImpulse = 0
-	self.bearingsAngle = {}
-	self.pistonsLength = {}
-	self.isActive = false
-	self.wasActive = false
-	self.bearingsCount = #self.interactable:getBearings()
-    self.pistonsCount = #self.interactable:getPistons()
-
 	--sc.motorsDatas[self.interactable:getId()] = self:server_createData()
 
 	sm.sc.creativeCheck(self, self.energy == math.huge)
@@ -199,6 +197,19 @@ end
 function ScriptableController.server_onFixedUpdate(self, dt)
 	self.bearingsCount = #self.interactable:getBearings()
 	self.pistonsCount = #self.interactable:getPistons()
+
+	-- -- Disconnected bearings
+	-- if self.bearingsCount < #self.bearingsAngle then
+	-- 	for i = self.bearingsCount, #self.bearingsAngle do
+	-- 		self.bearingsAngle[i] = nil
+	-- 	end
+	-- end
+	-- -- Disconnected pistons
+	-- if self.pistonsCount < #self.pistonsLength then
+	-- 	for i = self.pistonsCount, #self.pistonsLength do
+	-- 		self.pistonsLength[i] = nil
+	-- 	end
+	-- end
 
 	--------------------------------------------------------
 
@@ -231,6 +242,10 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 			end
 		else
 			for k, v in pairs(self.interactable:getBearings()) do
+				if self.bearingsAngle[k] == nil then
+					self.bearingsAngle[k] = 0
+				end
+
 				v:setTargetAngle(self.bearingsAngle[k], self.masterVelocity, self.maxImpulse)
 			end
 		end
