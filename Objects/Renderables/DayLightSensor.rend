@@ -1,0 +1,17 @@
+{
+	"lodList": [
+		{
+			"minViewSize": 15,
+			"mesh": "$CONTENT_DATA/Objects/Mesh/obj_dayLightSensor.obj",
+			"subMeshList" : [
+				{
+				   "material" : "DifAsg",
+				   "textureList" : [
+					  "$MOD_DATA/Objects/Textures/obj_dayLightSensor_dif.tga",
+					  "$MOD_DATA/Objects/Textures/obj_dayLightSensor_asg.tga"
+				   ]
+				}
+			]
+		}
+	]
+}

@@ -29,6 +29,11 @@ function ScriptableController.server_createData(self)
 
 end
 
+-- for script refresh
+function server_onRefresh()
+	self:server_onCreate()
+end
+
 function ScriptableController.server_onCreate(self)
 	self.chargeDelta = 0
 	
@@ -72,6 +77,11 @@ function ScriptableController.server_onCreate(self)
                     end
                 end,
 
+				resetAllBearingsAngle = function ()
+					for k, v in pairs(self.bearingsAngle) do
+						self.bearingsAngle[k] = 0
+					end
+				end,
                 getAllBearingsAngle = function () return self.bearingsAngle end,
                 getBearingAngle = function (id) return self.bearingsAngle[id] end,
                 setBearingAngle = function (id, v)
@@ -96,6 +106,11 @@ function ScriptableController.server_onCreate(self)
                     end
                 end,
 
+				resetAllPistonsLength = function ()
+					for k, v in pairs(self.pistonsLength) do
+						self.pistonsLength[k] = 0
+					end
+				end,
                 getAllPistonsLength = function () return self.pistonsLength end,
                 getPistonLength = function (id) return self.pistonsLength[id] end,
                 setPistonLength = function (id, v)
@@ -242,11 +257,15 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 			end
 		else
 			for k, v in pairs(self.interactable:getBearings()) do
+				mv = self.masterVelocity
+				mi = self.maxImpulse
 				if self.bearingsAngle[k] == nil then
 					self.bearingsAngle[k] = 0
+					mv = 0
+					mi = 0
 				end
 
-				v:setTargetAngle(self.bearingsAngle[k], self.masterVelocity, self.maxImpulse)
+				v:setTargetAngle(self.bearingsAngle[k], mv, mi)
 			end
 		end
 

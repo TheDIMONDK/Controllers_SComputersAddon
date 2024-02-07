@@ -20,6 +20,12 @@
             <Index name="769ea2b9-ea8b-4569-a77d-69d9060fcbcf">
                 <Frame point="384 0"/>
             </Index>
+            <Index name="d67bbd52-4764-4e83-8e04-19f872958194">
+                <Frame point="0 96"/>
+            </Index>
+            <Index name="50560fd5-4b78-46df-a5db-2c4be10941d1">
+                <Frame point="96 96"/>
+            </Index>
         </Group>
     </Resource>
 </MyGUI>

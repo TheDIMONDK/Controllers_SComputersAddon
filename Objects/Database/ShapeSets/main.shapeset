@@ -91,6 +91,43 @@
          "stackSize" : 6,
          "sticky" : "-X+X-Y+Y-Z+Z",
          "uuid" : "769ea2b9-ea8b-4569-a77d-69d9060fcbcf"
+      },
+      {
+         "box" : {
+            "x" : 1,
+            "y" : 1,
+            "z" : 1
+         },
+         "color" : "01b09d",
+         "physicsMaterial" : "Mechanical",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/DayLightSensor.rend",
+         "rotationSet" : "PropY",
+         "scripted" : {
+            "classname" : "DayLightSensor",
+            "data" : {
+               "survival" : true
+            },
+            "filename" : "$CONTENT_DATA/Scripts/DayLightSensor.lua"
+         },
+         "stackSize" : 12,
+         "uuid" : "d67bbd52-4764-4e83-8e04-19f872958194"
+      },
+      {
+         "box" : {
+            "x" : 1,
+            "y" : 1,
+            "z" : 1
+         },
+         "color" : "c400a6",
+         "physicsMaterial" : "Mechanical",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/DayLightSensor.rend",
+         "rotationSet" : "PropY",
+         "scripted" : {
+            "classname" : "DayLightSensor",
+            "filename" : "$CONTENT_DATA/Scripts/DayLightSensor.lua"
+         },
+         "stackSize" : 12,
+         "uuid" : "50560fd5-4b78-46df-a5db-2c4be10941d1"
       }
    ]
 }

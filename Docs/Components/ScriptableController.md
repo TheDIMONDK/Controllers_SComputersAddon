@@ -1,46 +1,67 @@
+```
 ---
 title: scriptableController
 ---
 
-The ScriptableController can be used to create automatic machinery and huge robots. \nIt also makes it possible to rotate the specified bearings and change the length of the specified connected pistons. In other words, it allows the bearings of the specified index to be rotated at any angle, and a similar situation is with the pistons - their length can also be changed individually, which allows for the creation of various asynchronous transforming structures.
+The ScriptableController is a versatile component in Scrap Mechanic that enables the automation and dynamic control of machinery and robotic constructs. It can precisely manipulate the rotation of bearings and the extension of pistons, allowing for the creation of complex, articulated structures and mechanisms. From simple automated doors to intricate transforming robots, the ScriptableController serves as the brain behind many inventive creations within the game.
 
 ### scriptableController component
 * type - scriptableController;
+
 ##### Primary
-* scriptableController.setActive(state:boolean) - starts or stops the controller. returns true even if there are no resources to work with in order to find out the true state use: scriptableController.isActive() and scriptableController.isWorkAvailable();
-* scriptableController.isActive():boolean - outputs the state set via setActive;
-* scriptableController.isWorkAvailable():boolean - outputs true if the engine can work at the moment (there is enough fuel and batteries);
-* scriptableController.getAvailableBatteries():number - returns the number of batteries available to the engine;
-* scriptableController.getCharge():number;
-* scriptableController.getChargeDelta():number;
-* scriptableController.getChargeAdditions():number;
-* scriptableController.getSoundType():number;
-* scriptableController.setSoundType(number);
+* **scriptableController.setActive(state:boolean)** - Initiates or halts the operation of the controller. It returns true irrespective of the controller's current resource availability. To accurately determine the controller's operational state or resource availability, use: `scriptableController.isActive()` and `scriptableController.isWorkAvailable()`.
+
+* **scriptableController.isActive():boolean** - Reveals whether the controller is currently activated. This status check is crucial for troubleshooting and synchronizing multiple controllers within larger systems, ensuring coordinated operations.
+
+* **scriptableController.isWorkAvailable():boolean** - Indicates the presence of necessary resources (e.g., fuel, batteries) for the controller to function. This method is vital for managing energy-efficient designs and ensuring machines operate only when they have adequate resources.
+
+* **scriptableController.getAvailableBatteries():number** - Reports the quantity of batteries available for the controller's operations. This information is key for power management and planning the deployment of battery-dependent devices.
+
+* **scriptableController.getCharge():number;**
+* **scriptableController.getChargeDelta():number;**
+* **scriptableController.getChargeAdditions():number;**
+* **scriptableController.getSoundType():number;**
+* **scriptableController.setSoundType(number);**
 
 ##### Config
-* scriptableController.getVelocity():number - returns the velocity of the controller's action on the bearings;
-* scriptableController.setVelocity(number) - set the velocity of the controller's on the bearings;
-* scriptableController.getStrength():number - returns the strength of the controller's on the bearings;
-* scriptableController.setStrength(number) - set the strength of the controller's action on the bearings;
+* **scriptableController.getVelocity():number** - Retrieves the current velocity at which the controller manipulates bearings. This is critical for tuning the speed of mechanical movements to match the desired pace of actions in machines and robots.
+
+* **scriptableController.setVelocity(number)** - Adjusts the velocity of bearing rotations. By fine-tuning this setting, creators can achieve precise control over the speed of mechanical parts, enhancing the performance of their constructs.
+
+* **scriptableController.getStrength():number** - Returns the force applied by the controller on the bearings. This parameter is essential for ensuring that mechanical movements have sufficient power.
+
+* **scriptableController.setStrength(number)** - Sets the strength of the controller's actions on bearings, allowing for the adjustment of force to match the requirements of various mechanical applications.
 
 ##### Bearings
-* scriptableController.getBearingsCount():number - returns the count of bearings connected to the controller;
-* scriptableController.getAllBearingsAngle():table - returns a table with the current angles of rotation (in radians) of all bearings (note that the index in the table is equal to the bearing index);
-* scriptableController.getBearingAngle(id:number) - returns the current angle of rotation of the bearing at the specified index (in radians);
-* scriptableController.setBearingAngle(id:number, angle:number) - set the angle of rotation of the bearing at the specified index (in radians);
+* **scriptableController.getBearingsCount():number** - Counts the bearings linked to the controller, aiding in the management and debugging of complex constructs by providing a quick inventory of controlled bearings.
+
+* **scriptableController.getAllBearingsAngle():table** - Produces a table detailing the current angular positions of all bearings. This is invaluable for diagnostics and synchronization tasks, offering a comprehensive overview of the mechanical state.
+
+* **scriptableController.getBearingAngle(id:number)** - Retrieves the angle of a specific bearing, allowing for precise monitoring and adjustments to individual components within a mechanism.
+
+* **scriptableController.setBearingAngle(id:number, angle:number)** - Sets a particular bearing's rotation angle. This method is fundamental for creating dynamic and responsive movements within mechanical constructs.
+
+* **scriptableController.resetAllBearingsAngle()** - Reverts all bearings to their original angular positions. This function is useful for resetting mechanisms to a known state before initiating a sequence of operations.
 
 ##### Pistons
-* scriptableController.getPistonsCount():number - returns the count of pistons connected to the controller;
-* scriptableController.getAllPistonsLength():table - returns a table with the current lengths of all pistons (note that the index in the table is equal to the piston index);
-* scriptableController.getPistonLength(id:number) - returns the current length of the piston at the specified index;
-* scriptableController.setBearingAngle(id:number, length:number) - set the length of the piston at the specified index;
+* **scriptableController.getPistonsCount():number** - Determines the number of pistons connected to the controller. This aids in the configuration and troubleshooting of piston-operated elements within creations.
 
+* **scriptableController.getAllPistonsLength():table** - Provides a table with the current extension lengths of all pistons. This feature is crucial for assessing and coordinating the movements of multiple pistons in complex systems.
+
+* **scriptableController.getPistonLength(id:number)** - Returns the extension length of a specific piston, offering precise control over individual piston adjustments for tailored mechanical actions.
+
+* **scriptableController.setPistonLength(id:number, length:number)** - Adjusts the length of a piston, enabling the customization of piston-driven movements to suit various engineering and design needs.
+
+* **scriptableController.resetAllPistonsLength()** - Resets all pistons to their initial lengths. This function is useful for ensuring that mechanical systems start from a consistent baseline for each operation cycle.
 
 #### Code
 
-Simple example (2 connected bearings, and 2 connected pistons)
+Below is a simple example showcasing the setup and basic operation of two connected bearings and pistons using the scriptableController:
+
 ```lua
-controller = getComponents("scriptableController")[1]
+controller = getComponents("scriptableController")[1
+
+]
 if controller == nil then return end
 
 -- Configuring
