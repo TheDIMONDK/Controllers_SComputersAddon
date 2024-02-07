@@ -10,7 +10,7 @@ The DayLightSensor can be used to automate energy-saving systems and enhance sec
 ##### Primary
 * **DayLightSensor.isSkyNotObstructed():boolean** - checks if the sky is not obstructed for the sensor. Returns true if the sensor has a clear view of the sky, false otherwise. This method is crucial for outdoor applications where the sensor's performance might be affected by physical obstructions like buildings or trees.
 
-* DayLightSensor.isDay():boolean** - determines if the sensor perceives the current time as day. Returns true during daylight hours, based on the game world's day-night cycle. This can be used to activate or deactivate machines and systems during the day.
+* **DayLightSensor.isDay():boolean** - determines if the sensor perceives the current time as day. Returns true during daylight hours, based on the game world's day-night cycle. This can be used to activate or deactivate machines and systems during the day.
 
 * **DayLightSensor.isNight():boolean** - determines if the sensor perceives the current time as night. Returns true during nighttime hours, according to the game world's day-night cycle. This function can be particularly useful for activating lighting systems or triggering events that should only occur at night.
 

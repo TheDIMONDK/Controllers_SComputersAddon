@@ -1,3 +1,7 @@
+---------------------------------
+--   By TheDIMONDK             --
+---------------------------------
+
 DayLightSensor = class(nil)
 DayLightSensor.maxParentCount = 1
 DayLightSensor.maxChildCount = 0

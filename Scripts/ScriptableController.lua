@@ -1,3 +1,7 @@
+---------------------------------
+--   By TheDIMONDK & SC devs   --
+---------------------------------
+
 ScriptableController = class(nil)
 ScriptableController.maxParentCount = -1
 ScriptableController.maxChildCount = 16
