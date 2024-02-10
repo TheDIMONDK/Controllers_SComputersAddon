@@ -64,8 +64,12 @@ function DayLightSensor.server_onCreate(self)
             }
         }
     }
+
+    sm.sc.creativeCheck(self, self.data == nil)
 end
 
 function DayLightSensor.server_onFixedUpdate(self, dt)
     self.currentTime = sm.game.getTimeOfDay() * 24
+
+    sm.sc.creativeCheck(self, self.data == nil)
 end
