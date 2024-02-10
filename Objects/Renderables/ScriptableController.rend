@@ -2,7 +2,7 @@
 	"lodList": [
 		{
 			"minViewSize": 15,
-			"mesh": "$CONTENT_DATA/Objects/Mesh/obj_scriptableController.obj",
+			"mesh": "$CONTENT_DATA/Objects/Mesh/obj_interactive_scriptableController.obj",
 			"subMeshList" : [
 				{
 				   "material" : "DifAsg",
