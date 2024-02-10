@@ -34,5 +34,16 @@
       "title" : "#f002a8Crative Day Light Sensor#eeeeee",
       "description" : "#ffd54cSupports obstructed sky: #ffeaa5Yes\n\n#939393Allows you to determine whether it is day or night.\n\nFor instance, it enables the construction of solar-powered buildings that only consume energy during daylight hours, optimizing the use of resources.",
       "keywords" : ["day", "night", "panel", "lua"]
+   },
+
+   "0386a24f-208b-4173-b077-e74cf0a48a29" : {
+      "title" : "Futuristical button",
+      "description" : "#ffd54cType: #ffeaa5button\n\n#939393On a high stand.",
+      "keywords" : ["switch", "sci-fi", "future"]
+   },
+   "37660963-af8f-4b40-bd60-2bd37ca71fbd" : {
+      "title" : "Mixer switch",
+      "description" : "#ffd54cType: #ffeaa5lever\n\n#939393Let's start the party!",
+      "keywords" : ["switch", "lever"]
    }
 }

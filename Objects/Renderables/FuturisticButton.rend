@@ -1,0 +1,19 @@
+{
+	"lodList": [
+		{
+            "minViewSize": 15,
+            "mesh": "$MOD_DATA/Objects/Mesh/obj_interactive_futuristicButton_off.obj",
+            "subMeshList": [
+                {
+                    "material": "PoseAnimDifAsgNor",
+                    "textureList": [
+                        "$MOD_DATA/Objects/Textures/obj_interactive_buttons_dif.tga",
+                        "$MOD_DATA/Objects/Textures/obj_interactive_buttons_asg.tga",
+                        "$MOD_DATA/Objects/Textures/obj_interactive_buttons_nor.tga"
+                    ]
+                }
+            ],
+            "pose0": "$MOD_DATA/Objects/Mesh/obj_interactive_futuristicButton_on.obj"
+        }
+	]
+}
