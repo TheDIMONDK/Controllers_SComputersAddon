@@ -45,5 +45,15 @@
       "title" : "Mixer switch",
       "description" : "#ffd54cType: #ffeaa5lever\n\n#939393Let's start the party!",
       "keywords" : ["switch", "lever"]
+   },
+   "3ae1ac50-fedd-4229-a09a-f29844475944" : {
+      "title" : "Mixer switch (button)",
+      "description" : "#ffd54cType: #ffeaa5button\n\n#939393Let's start the party!",
+      "keywords" : ["switch", "lever"]
+   },
+   "75e7fa69-6f3f-4c03-b3f3-d0c58e05d803" : {
+      "title" : "Emergency lever",
+      "description" : "#ffd54cType: #ffeaa5lever\n\n#939393Perfect for switching alarms!",
+      "keywords" : ["switch", "lever"]
    }
 }

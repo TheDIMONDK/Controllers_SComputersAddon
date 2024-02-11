@@ -135,8 +135,9 @@
             "y" : 1,
             "z" : 1
          },
-         "button" : {},
          "color" : "a60003",
+         "density": 250.0,
+         "button" : {},
          "physicsMaterial" : "Plastic",
          "renderable" : "$CONTENT_DATA/Objects/Renderables/FuturisticButton.rend",
          "rotationSet" : "PropY",
@@ -149,13 +150,44 @@
             "y" : 1,
             "z" : 1
          },
-         "lever": { },
          "color" : "a60003",
+         "density": 250.0,
+         "lever" : {},
          "physicsMaterial" : "Plastic",
          "renderable" : "$CONTENT_DATA/Objects/Renderables/MixerSwitch.rend",
          "rotationSet" : "PropY",
          "stackSize" : 1,
          "uuid" : "37660963-af8f-4b40-bd60-2bd37ca71fbd"
+      },
+      {
+         "box" : {
+            "x" : 1,
+            "y" : 1,
+            "z" : 1
+         },
+         "color" : "a60003",
+         "density": 250.0,
+         "button" : {},
+         "physicsMaterial" : "Plastic",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/MixerSwitch.rend",
+         "rotationSet" : "PropY",
+         "stackSize" : 1,
+         "uuid" : "3ae1ac50-fedd-4229-a09a-f29844475944"
+      },
+      {
+         "box" : {
+            "x" : 1,
+            "y" : 1,
+            "z" : 1
+         },
+         "color" : "a60003",
+         "density": 250.0,
+         "lever" : {},
+         "physicsMaterial" : "Metal",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/EmergencyLever.rend",
+         "rotationSet" : "PropY",
+         "stackSize" : 1,
+         "uuid" : "75e7fa69-6f3f-4c03-b3f3-d0c58e05d803"
       }
    ]
 }
