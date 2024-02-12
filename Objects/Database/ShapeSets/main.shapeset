@@ -18,7 +18,7 @@
          },
          "color" : "01b09d",
          "physicsMaterial" : "Mechanical",
-         "renderable" : "$CONTENT_DATA/Objects/Renderables/ScriptableController.rend",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/obj_interactive_scriptableController.rend",
          "rotationSet" : "PropYZ",
          "scripted" : {
             "classname" : "ScriptableController",
@@ -27,7 +27,7 @@
                "survival" : true,
                "v" : 75
             },
-            "filename" : "$CONTENT_DATA/Scripts/ScriptableController.lua"
+            "filename" : "$CONTENT_DATA/Scripts/Interactible/ScriptableController.lua"
          },
          "stackSize" : 6,
          "sticky" : "-X+X-Y+Y-Z+Z",
@@ -41,11 +41,11 @@
          },
          "color" : "c400a6",
          "physicsMaterial" : "Mechanical",
-         "renderable" : "$CONTENT_DATA/Objects/Renderables/ScriptableController.rend",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/obj_interactive_scriptableController.rend",
          "rotationSet" : "PropYZ",
          "scripted" : {
             "classname" : "ScriptableController",
-            "filename" : "$CONTENT_DATA/Scripts/ScriptableController.lua"
+            "filename" : "$CONTENT_DATA/Scripts/Interactible/ScriptableController.lua"
          },
          "stackSize" : 6,
          "sticky" : "-X+X-Y+Y-Z+Z",
@@ -59,7 +59,7 @@
          },
          "color" : "01b09d",
          "physicsMaterial" : "Mechanical",
-         "renderable" : "$CONTENT_DATA/Objects/Renderables/ScriptableController_mini.rend",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/obj_interactive_scriptableController_mini.rend",
          "rotationSet" : "PropYZ",
          "scripted" : {
             "classname" : "ScriptableController",
@@ -68,7 +68,7 @@
                "survival" : true,
                "v" : 75
             },
-            "filename" : "$CONTENT_DATA/Scripts/ScriptableController.lua"
+            "filename" : "$CONTENT_DATA/Scripts/Interactible/ScriptableController.lua"
          },
          "stackSize" : 6,
          "sticky" : "-X+X-Y+Y-Z+Z",
@@ -82,11 +82,11 @@
          },
          "color" : "c400a6",
          "physicsMaterial" : "Mechanical",
-         "renderable" : "$CONTENT_DATA/Objects/Renderables/ScriptableController_mini.rend",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/obj_interactive_scriptableController_mini.rend",
          "rotationSet" : "PropYZ",
          "scripted" : {
             "classname" : "ScriptableController",
-            "filename" : "$CONTENT_DATA/Scripts/ScriptableController.lua"
+            "filename" : "$CONTENT_DATA/Scripts/Interactible/ScriptableController.lua"
          },
          "stackSize" : 6,
          "sticky" : "-X+X-Y+Y-Z+Z",
@@ -100,14 +100,14 @@
          },
          "color" : "01b09d",
          "physicsMaterial" : "Mechanical",
-         "renderable" : "$CONTENT_DATA/Objects/Renderables/DayLightSensor.rend",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/obj_interactive_dayLightSensor.rend",
          "rotationSet" : "PropY",
          "scripted" : {
             "classname" : "DayLightSensor",
             "data" : {
                "survival" : true
             },
-            "filename" : "$CONTENT_DATA/Scripts/DayLightSensor.lua"
+            "filename" : "$CONTENT_DATA/Scripts/Interactible/DayLightSensor.lua"
          },
          "stackSize" : 12,
          "uuid" : "d67bbd52-4764-4e83-8e04-19f872958194"
@@ -120,11 +120,11 @@
          },
          "color" : "c400a6",
          "physicsMaterial" : "Mechanical",
-         "renderable" : "$CONTENT_DATA/Objects/Renderables/DayLightSensor.rend",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/obj_interactive_dayLightSensor.rend",
          "rotationSet" : "PropY",
          "scripted" : {
             "classname" : "DayLightSensor",
-            "filename" : "$CONTENT_DATA/Scripts/DayLightSensor.lua"
+            "filename" : "$CONTENT_DATA/Scripts/Interactible/DayLightSensor.lua"
          },
          "stackSize" : 12,
          "uuid" : "50560fd5-4b78-46df-a5db-2c4be10941d1"
@@ -139,7 +139,7 @@
          "density": 250.0,
          "button" : {},
          "physicsMaterial" : "Plastic",
-         "renderable" : "$CONTENT_DATA/Objects/Renderables/FuturisticButton.rend",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/obj_interactive_futuristicButton.rend",
          "rotationSet" : "PropY",
          "stackSize" : 1,
          "uuid" : "0386a24f-208b-4173-b077-e74cf0a48a29"
@@ -154,7 +154,7 @@
          "density": 250.0,
          "lever" : {},
          "physicsMaterial" : "Plastic",
-         "renderable" : "$CONTENT_DATA/Objects/Renderables/MixerSwitch.rend",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/obj_interactive_mixerSwitch.rend",
          "rotationSet" : "PropY",
          "stackSize" : 1,
          "uuid" : "37660963-af8f-4b40-bd60-2bd37ca71fbd"
@@ -169,7 +169,7 @@
          "density": 250.0,
          "button" : {},
          "physicsMaterial" : "Plastic",
-         "renderable" : "$CONTENT_DATA/Objects/Renderables/MixerSwitch.rend",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/obj_interactive_mixerSwitch.rend",
          "rotationSet" : "PropY",
          "stackSize" : 1,
          "uuid" : "3ae1ac50-fedd-4229-a09a-f29844475944"
@@ -184,7 +184,7 @@
          "density": 250.0,
          "lever" : {},
          "physicsMaterial" : "Metal",
-         "renderable" : "$CONTENT_DATA/Objects/Renderables/EmergencyLever.rend",
+         "renderable" : "$CONTENT_DATA/Objects/Renderables/obj_interactive_emergencyLever.rend",
          "rotationSet" : "PropY",
          "stackSize" : 1,
          "uuid" : "75e7fa69-6f3f-4c03-b3f3-d0c58e05d803"

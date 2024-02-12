@@ -57,9 +57,7 @@ The ScriptableController is a versatile component in Scrap Mechanic that enables
 
 Below is a simple example showcasing the setup and basic operation of two connected bearings and pistons using the scriptableController:
 ```lua
-controller = getComponents("scriptableController")[1
-
-]
+controller = getComponents("scriptableController")[1]
 if controller == nil then return end
 
 -- Configuring
