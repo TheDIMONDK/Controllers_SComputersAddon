@@ -92,12 +92,8 @@ function ScriptableController.server_onCreate(self)
                     if type(id) == "number" then
                         if type(v) == "number" or type(v) == "nil" then
                             local val = v and sm.util.clamp(v, -3.402e+38, 3.402e+38) or nil
-                            if id <= self.bearingsCount then
-								if self.bearingsAngle[id] == nil then
-									table.insert(self.bearingsAngle, val)
-								else
-									self.bearingsAngle[id] = val
-								end
+                            if id <= self.bearingsCount and id > 0 then
+								self.bearingsAngle[id] = val
 							else
 								error(id .. " - Value of index must be less than or equal to the number of connected bearings")
 							end
@@ -121,12 +117,8 @@ function ScriptableController.server_onCreate(self)
                     if type(id) == "number" then
                         if type(v) == "number" then
                             if v >= 0 then
-								if id <= self.pistonsCount then
-									if self.pistonsLength[id] == nil then
-										table.insert(self.pistonsLength, v)
-									else
-										self.pistonsLength[id] = val
-									end
+								if id <= self.pistonsCount and id > 0 then
+									self.pistonsLength[id] = v
 								else
 									error(id .. " - Value of index must be less than or equal to the number of connected pistons")
 								end
@@ -217,6 +209,13 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 	self.bearingsCount = #self.interactable:getBearings()
 	self.pistonsCount = #self.interactable:getPistons()
 
+	if #self.bearingsAngle > 16 then
+		self.bearingsAngle = {}
+	end
+	if #self.pistonsLength > 16 then
+		self.pistonsLength = {}
+	end
+
 	-- -- Disconnected bearings
 	-- if self.bearingsCount < #self.bearingsAngle then
 	-- 	for i = self.bearingsCount, #self.bearingsAngle do
@@ -255,6 +254,7 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 
 	if active then
         -- Bearings
+		--print("Bearings", self.bearingsAngle)
 		if #self.bearingsAngle == 0 then
 			for k, v in pairs(self.interactable:getBearings()) do
 				v:setMotorVelocity(self.masterVelocity, self.maxImpulse)
@@ -274,9 +274,14 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 		end
 
         -- Pistons
-        if #self.pistonsLength ~= 0 then
+		--print("Pistons", self.pistonsLength, self.pistonsCount)
+        if #self.pistonsLength ~= 0 and #self.pistonsLength >= self.pistonsCount then
 			for k, v in pairs(self.interactable:getPistons()) do
-                v:setTargetLength(math.max(self.pistonsLength[k]-1, 0), self.masterVelocity, 100000)
+				if self.pistonsLength[k] ~= nil then
+					v:setTargetLength(math.max(self.pistonsLength[k]-1, 0), self.masterVelocity, 500000)
+				else
+					v:setTargetLength(0, self.masterVelocity, 500000)
+				end
 			end
 		end
 
