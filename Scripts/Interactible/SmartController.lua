@@ -4,23 +4,23 @@
 -- 2024-2025 Copyrighted code. Scrap Mechanic API.
 
 dofile "$CONTENT_DATA/Scripts/Config.lua"
+clamp = sm.util.clamp
 
-ScriptableController = class(nil)
-ScriptableController.maxParentCount = -1
-ScriptableController.maxChildCount = -1
-ScriptableController.connectionInput = sm.interactable.connectionType.composite + sm.interactable.connectionType.electricity
-ScriptableController.connectionOutput = sm.interactable.connectionType.bearing + sm.interactable.connectionType.piston
-ScriptableController.colorNormal = sm.color.new(0x00b3a4ff)
-ScriptableController.colorHighlight = sm.color.new(0x1bdeceff)
-ScriptableController.componentType = "scriptableController"
+SmartController = class(nil)
+SmartController.maxParentCount = -1
+SmartController.maxChildCount = -1
+SmartController.connectionInput = sm.interactable.connectionType.composite + sm.interactable.connectionType.electricity
+SmartController.connectionOutput = sm.interactable.connectionType.bearing + sm.interactable.connectionType.piston
+SmartController.colorNormal = sm.color.new(0x2b7abfff)
+SmartController.colorHighlight = sm.color.new(0x3e9bedff)
+SmartController.componentType = "smartController"
 
-ScriptableController.nonActiveImpulse = 0
-ScriptableController.chargeAdditions = 50000
-
-
+SmartController.nonActiveImpulse = 0
+SmartController.chargeAdditions = 50000
 
 
-function ScriptableController.server_createData(self)
+
+function SmartController.server_createData(self)
 
 end
 
@@ -29,7 +29,7 @@ function server_onRefresh()
 	self:server_onCreate()
 end
 
-function ScriptableController.server_onCreate(self)
+function SmartController.server_onCreate(self)
 	self.chargeDelta = 0
 
 	self.soundtype = 1
@@ -51,10 +51,23 @@ function ScriptableController.server_onCreate(self)
 	self.bearingsCount = #self.interactable:getBearings()
     self.pistonsCount = #self.interactable:getPistons()
 
+	self.operationState = 0
+
+	self.program = {}
+
+	self.programStage = 0
+	self.programTimer = 0
+
 	self.interactable.publicData = {
         sc_component = {
-            type = ScriptableController.componentType,
+            type = SmartController.componentType,
             api = {
+				start = function (program)
+					if program == nil then error("Please specify the dictionary with the program logic.") end
+					self.program = program
+					self.operationState = 1
+				end,
+				stop = function () self.operationState = 2 end,
                 getVelocity = function () return self.masterVelocity end,
                 setVelocity = function (v)
                     if type(v) == "number" then
@@ -69,60 +82,6 @@ function ScriptableController.server_onCreate(self)
                         self.maxImpulse = sm.util.clamp(v, 0, self.mImpulse)
                     else
                         error("Value must be number")
-                    end
-                end,
-
-				resetAllBearingsAngle = function ()
-					for k, v in pairs(self.bearingsAngle) do
-						self.bearingsAngle[k] = 0
-					end
-				end,
-                getAllBearingsAngle = function () return self.bearingsAngle end,
-                getBearingAngle = function (v4) return self.bearingsAngle[v4] end,
-                setBearingAngle = function (v4, v)
-                    if type(v4) == "number" then
-                        if type(v) == "number" or type(v) == "nil" then
-                            local v11 = v and sm.util.clamp(v, -3.402e+38, 3.402e+38) or nil
-                            if v4 <= self.bearingsCount and v4 > 0 then
-								self.bearingsAngle[v4] = v11
-							else
-								error(v4 .. " - Value of index must be less than or equal to the number of connected bearings")
-							end
-                        else
-                            error("Value of angle must be number or nil")
-                        end
-
-                    else
-                        error("Value of index must be number")
-                    end
-                end,
-
-				resetAllPistonsLength = function ()
-					for k, v in pairs(self.pistonsLength) do
-						self.pistonsLength[k] = 0
-					end
-				end,
-                getAllPistonsLength = function () return self.pistonsLength end,
-                getPistonLength = function (v4) return self.pistonsLength[v4] end,
-                setPistonLength = function (v4, v)
-                    if type(v4) == "number" then
-                        if type(v) == "number" then
-                            if v >= 0 then
-								if v4 <= self.pistonsCount and v4 > 0 then
-									self.pistonsLength[v4] = v
-								else
-									error(v4 .. " - Value of index must be less than or equal to the number of connected pistons")
-								end
-
-                            else
-                                error("Value of length must be non-negative")
-                            end
-                        else
-                            error("Value of length must be number")
-                        end
-
-                    else
-                        error("Value of index must be number")
                     end
                 end,
 
@@ -167,18 +126,12 @@ function ScriptableController.server_onCreate(self)
                     return self.pistonsCount or 0
                 end,
 
-
-
-
-
-
-
                 getChargeAdditions = function ()
-                    return ScriptableController.chargeAdditions
+                    return SmartController.chargeAdditions
                 end,
-                setSoundType = function (v8)
-                    checkArg(1, v8, "number")
-                    self.soundtype = v8
+                setSoundType = function (v7)
+                    checkArg(1, v7, "number")
+                    self.soundtype = v7
                 end,
                 getSoundType = function ()
                     return self.soundtype
@@ -192,33 +145,118 @@ function ScriptableController.server_onCreate(self)
 	sm.sc.creativeCheck(self, self.energy == math.huge)
 end
 
-function ScriptableController.server_onDestroy(self)
+function SmartController.server_onDestroy(self)
 
 end
 
-function ScriptableController.server_onFixedUpdate(self, dt)
+function SmartController.resetAllBearingsAngle(self)
+	for k, v in pairs(self.bearingsAngle) do
+		self.bearingsAngle[k] = 0
+	end
+end
+function SmartController.getAllBearingsAngle(self) return self.bearingsAngle end
+function SmartController.getBearingAngle(self, id) return self.bearingsAngle[id] end
+function SmartController.setBearingAngle(self, id, v)
+	if type(id) == "number" then
+		if type(v) == "number" or type(v) == "nil" then
+			local v11 = v and sm.util.clamp(v, -3.402e+38, 3.402e+38) or 0
+			if id > 0 then
+				self.bearingsAngle[id] = v11
+			else
+				error(id .. " - Value of index must be less than or equal to the number of connected bearings")
+			end
+		else
+			error("Value of angle must be number or nil")
+		end
+
+	else
+		error("Value of index must be number")
+	end
+end
+
+function SmartController.resetAllPistonsLength(self)
+	for k, v in pairs(self.pistonsLength) do
+		self.pistonsLength[k] = 0
+	end
+end
+function SmartController.getAllPistonsLength(self) return self.pistonsLength end
+function SmartController.getPistonLength(self, id) return self.pistonsLength[id] end
+function SmartController.setPistonLength(self, id, v)
+	if type(id) == "number" then
+		if type(v) == "number" then
+			if v >= 0 then
+				if id <= self.pistonsCount and id > 0 then
+					self.pistonsLength[id] = v
+				else
+					error(id .. " - Value of index must be less than or equal to the number of connected pistons")
+				end
+
+			else
+				error("Value of length must be non-negative")
+			end
+		else
+			error("Value of length must be number")
+		end
+
+	else
+		error("Value of index must be number")
+	end
+end
+
+function SmartController.performStage(self, currentStage)
+
+
+	bearings = currentStage["bearings"]
+	if bearings ~= nil then
+		for i, bearingData in pairs(bearings) do
+
+			angle = math.rad(self.operationState == 1 and bearingData[2] or bearingData[1])
+
+
+			if type(i) == "number" then
+				self:setBearingAngle(i, angle)
+
+
+			elseif type(i) == "table" and #i >= 2 and type(i[1]) == "number" and type(i[2]) == "number" then
+
+				for j = i[1], i[2] do
+					self:setBearingAngle(j, angle)
+				end
+
+			else
+				error("Invalid enumeration type. Use [oneIndex] or [{startIndex, endIndex}].")
+			end
+		end
+	end
+
+
+	pistons = currentStage["pistons"]
+	if pistons ~= nil then
+		for i, pistonData in pairs(pistons) do
+
+			length = self.operationState == 1 and pistonData[2] or pistonData[1]
+
+
+			if type(i) == "number" then
+				self:setPistonLength(i, length)
+
+
+			elseif type(i) == "table" and #i >= 2 and type(i[1]) == "number" and type(i[2]) == "number" then
+
+				for j = i[1], i[2] do
+					self:setPistonLength(j, length)
+				end
+
+			else
+				error("Invalid enumeration type. Use [oneIndex] or [{startIndex, endIndex}].")
+			end
+		end
+	end
+end
+
+function SmartController.server_onFixedUpdate(self, dt)
 	self.bearingsCount = #self.interactable:getBearings()
 	self.pistonsCount = #self.interactable:getPistons()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -245,7 +283,6 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 
 	if v1 then
 
-
 		if #self.bearingsAngle == 0 then
 			for k, v in pairs(self.interactable:getBearings()) do
 				v:setMotorVelocity(self.masterVelocity, self.maxImpulse)
@@ -265,11 +302,10 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 		end
 
 
-
-        if #self.pistonsLength ~= 0 and #self.pistonsLength >= self.pistonsCount then
+        if #self.pistonsLength ~= 0 then
 			for k, v in pairs(self.interactable:getPistons()) do
 				if self.pistonsLength[k] ~= nil then
-					v:setTargetLength(math.max(self.pistonsLength[k]-1, 0), self.masterVelocity, 500000)
+					v:setTargetLength(math.max(self.pistonsLength[k] - 1, 0), self.masterVelocity, 500000)
 				else
 					v:setTargetLength(0, self.masterVelocity, 500000)
 				end
@@ -287,7 +323,7 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 		end
 	elseif self.wasActive then
 		for k, v in pairs(self.interactable:getBearings()) do
-			v:setMotorVelocity(0, ScriptableController.nonActiveImpulse)
+			v:setMotorVelocity(0, SmartController.nonActiveImpulse)
 		end
 	end
 	self.wasActive = v1
@@ -303,13 +339,13 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 	load ~= self.old_load or
 	self.soundtype ~= self.old_type then
 		if v1 and self.soundtype ~= 0 then
-			local v5, v7 = load, rpm
+			local v4, v6 = load, rpm
 			if self.soundtype == 1 then
-				v7 = v5
+				v6 = v4
 			end
 			self.network:sendToClients("cl_setEffectParams", {
-				rpm = v7,
-				load = v5,
+				rpm = v6,
+				load = v4,
 				soundtype = self.soundtype
 			})
 		else
@@ -322,9 +358,70 @@ function ScriptableController.server_onFixedUpdate(self, dt)
 	self.old_type = self.soundtype
 
 	sm.sc.creativeCheck(self, self.energy == math.huge)
+
+	if v1 and self.program ~= nil and self.operationState ~= 0 then
+		self.programTimer = self.programTimer + dt
+
+		stages = self.program
+
+
+		if self.operationState ~= prevState then
+			prevState = self.operationState
+			self.programStage = 0
+			self.programTimer = 0
+
+
+			if self.operationState == 1 then
+				self:performStage(stages[1])
+			elseif self.operationState == 2 then
+				self:performStage(stages[#stages])
+			end
+
+			self.programStage = 1
+
+			return
+		end
+
+
+
+
+
+		nextStageIndex = clamp(self.programStage, 1, #stages)
+		currentStage = self.operationState == 1 and stages[nextStageIndex] or stages[#stages - nextStageIndex + 1]
+
+
+		if self.programStage >= 1 then
+			self.programTimer = self.programTimer + dt
+		end
+
+
+		currentInterval = 1
+
+		StageDelays = currentStage["delays"]
+		if StageDelays ~= nil then
+
+			currentInterval = self.operationState == 1 and StageDelays[1] or math.max(0, StageDelays[2] - 1)
+		end
+
+
+		if self.programTimer >= currentInterval then
+			self.programTimer = 0
+			self.programStage = self.programStage + 1
+
+
+
+			if self.programStage <= #stages then
+				self:performStage(self.operationState == 1 and stages[self.programStage] or stages[#stages - self.programStage + 1])
+			else
+				self.programStage = 0
+
+				self.operationState = 0
+			end
+		end
+	end
 end
 
-function ScriptableController:sv_removeItem()
+function SmartController:sv_removeItem()
 	obj_consumable_battery = sm.uuid.new("910a7f2c-52b0-46eb-8873-ad13255539af")
 
 	for _, parent in ipairs(self.interactable:getParents()) do
@@ -334,7 +431,7 @@ function ScriptableController:sv_removeItem()
 				sm.container.beginTransaction()
 				sm.container.spend(container, obj_consumable_battery, 1, true)
 				if sm.container.endTransaction() then
-					self.energy = self.energy + ScriptableController.chargeAdditions
+					self.energy = self.energy + SmartController.chargeAdditions
 					break
 				end
 			end
@@ -342,7 +439,7 @@ function ScriptableController:sv_removeItem()
 	end
 end
 
-function ScriptableController:sv_mathCount()
+function SmartController:sv_mathCount()
     local v3 = 0
     for _, parent in ipairs(self.interactable:getParents()) do
         if parent:hasOutputType(sm.interactable.connectionType.electricity) then
@@ -358,10 +455,10 @@ end
 
 
 
-function ScriptableController:client_onCreate()
+function SmartController:client_onCreate()
 end
 
-function ScriptableController:cl_setEffectParams(tbl)
+function SmartController:cl_setEffectParams(tbl)
 	if tbl then
 		if tbl.soundtype ~= self.cl_oldSoundType then
 			if self.effect then

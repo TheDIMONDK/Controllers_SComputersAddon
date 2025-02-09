@@ -1,0 +1,17 @@
+{
+	"lodList": [
+		{
+			"minViewSize": 15,
+			"mesh": "$CONTENT_DATA/Objects/Mesh/obj_interactive_smartController_mini.obj",
+			"subMeshList" : [
+				{
+				   "material" : "DifAsg",
+				   "textureList" : [
+					  "$MOD_DATA/Objects/Textures/obj_interactive_scriptableController_dif.tga",
+					  "$MOD_DATA/Objects/Textures/obj_interactive_scriptableController_asg.tga"
+				   ]
+				}
+			]
+		}
+	]
+}

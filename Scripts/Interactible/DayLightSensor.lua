@@ -1,6 +1,7 @@
 ---------------------------------
---   By TheDIMONDK             --
+--        By TheDIMONDK        --
 ---------------------------------
+-- 2024-2025 Copyrighted code. Scrap Mechanic API.
 
 DayLightSensor = class(nil)
 DayLightSensor.maxParentCount = 1
@@ -13,28 +14,28 @@ DayLightSensor.componentType = "dayLightSensor"
 DayLightSensor.dayBegin = 4
 DayLightSensor.dayEnd = 19.5
 
--- LOCAL --
+
 function DayLightSensor.IsSkyFree(self)
     if (self.data and self.data.survival) then
-        local ok, data = sm.physics.raycast(self.shape.worldPosition, self.shape.worldPosition + sm.vec3.new(0, 0, 10000), sm.shape.body)
-        if ok and data.type ~= "limiter" then
-            return false -- is sky blocked
+        local v2, data = sm.physics.raycast(self.shape.worldPosition, self.shape.worldPosition + sm.vec3.new(0, 0, 10000), sm.shape.body)
+        if v2 and data.type ~= "limiter" then
+            return false
         else
-            return true -- is sky free
+            return true
         end
     else
-        return true -- is creative
+        return true
     end
 end
 
 
--- SERVER --
+
 
 function DayLightSensor.server_createData(self)
 
 end
 
--- for script refresh
+
 function server_onRefresh()
 	self:server_onCreate()
 end
