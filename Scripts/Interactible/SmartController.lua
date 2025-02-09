@@ -67,7 +67,12 @@ function SmartController.server_onCreate(self)
 					self.program = program
 					self.operationState = 1
 				end,
-				stop = function () self.operationState = 2 end,
+				stop = function ()
+
+					if self.operationState ~= 0 then
+						self.operationState = 2
+					end
+				end,
                 getVelocity = function () return self.masterVelocity end,
                 setVelocity = function (v)
                     if type(v) == "number" then
@@ -142,6 +147,38 @@ function SmartController.server_onCreate(self)
 
 
 
+	if (self.pistonsCount or 0) > 0 then
+
+		if self.program ~= nil and #self.program > 0 and self.program[1]["pistons"] ~= nil then
+			for i, pistonData in pairs(self.program[1]["pistons"]) do
+
+				self:setPistonLength(i, pistonData[1])
+			end
+
+		else
+			for i = 1, self.pistonsCount do
+
+				self:setPistonLength(i, 0)
+			end
+		end
+	end
+
+	if (self.bearingsCount or 0) > 0 then
+
+		if self.program ~= nil and #self.program > 0 and self.program[1]["bearings"] ~= nil then
+			for i, bearingData in pairs(self.program[1]["bearings"]) do
+
+				self:setBearingAngle(i, bearingData[1])
+			end
+
+		else
+			for i = 1, self.bearingsCount do
+
+				self:setBearingAngle(i, 0)
+			end
+		end
+	end
+
 	sm.sc.creativeCheck(self, self.energy == math.huge)
 end
 
@@ -203,6 +240,38 @@ function SmartController.setPistonLength(self, id, v)
 	end
 end
 
+function SmartController.refreshAll(self)
+
+	if #self.bearingsAngle == 0 then
+		for k, v in pairs(self.interactable:getBearings()) do
+			v:setMotorVelocity(self.masterVelocity, self.maxImpulse)
+		end
+	else
+		for k, v in pairs(self.interactable:getBearings()) do
+			mv = self.masterVelocity
+			mi = self.maxImpulse
+			if self.bearingsAngle[k] == nil then
+				self.bearingsAngle[k] = 0
+				mv = 0
+				mi = 0
+			end
+
+			v:setTargetAngle(self.bearingsAngle[k], mv, mi)
+		end
+	end
+
+
+	if #self.pistonsLength ~= 0 then
+		for k, v in pairs(self.interactable:getPistons()) do
+			if self.pistonsLength[k] ~= nil then
+				v:setTargetLength(math.max(self.pistonsLength[k] - 1, 0), self.masterVelocity, 500000)
+			else
+				v:setTargetLength(0, self.masterVelocity, 500000)
+			end
+		end
+	end
+end
+
 function SmartController.performStage(self, currentStage)
 
 
@@ -252,6 +321,9 @@ function SmartController.performStage(self, currentStage)
 			end
 		end
 	end
+
+
+	self:refreshAll()
 end
 
 function SmartController.server_onFixedUpdate(self, dt)
@@ -282,36 +354,6 @@ function SmartController.server_onFixedUpdate(self, dt)
 	end
 
 	if v1 then
-
-		if #self.bearingsAngle == 0 then
-			for k, v in pairs(self.interactable:getBearings()) do
-				v:setMotorVelocity(self.masterVelocity, self.maxImpulse)
-			end
-		else
-			for k, v in pairs(self.interactable:getBearings()) do
-				mv = self.masterVelocity
-				mi = self.maxImpulse
-				if self.bearingsAngle[k] == nil then
-					self.bearingsAngle[k] = 0
-					mv = 0
-					mi = 0
-				end
-
-				v:setTargetAngle(self.bearingsAngle[k], mv, mi)
-			end
-		end
-
-
-        if #self.pistonsLength ~= 0 then
-			for k, v in pairs(self.interactable:getPistons()) do
-				if self.pistonsLength[k] ~= nil then
-					v:setTargetLength(math.max(self.pistonsLength[k] - 1, 0), self.masterVelocity, 500000)
-				else
-					v:setTargetLength(0, self.masterVelocity, 500000)
-				end
-			end
-		end
-
 		if self.maxImpulse > 0 then
 			for k, v in pairs(self.interactable:getBearings()) do
 				self.chargeDelta = self.chargeDelta + math.abs(v:getAppliedImpulse())
@@ -359,10 +401,12 @@ function SmartController.server_onFixedUpdate(self, dt)
 
 	sm.sc.creativeCheck(self, self.energy == math.huge)
 
+	stages = self.program
+
+	if v1 and (self.program == nil or #stages <= 0) and self.operationState ~= 0 then error("Smart Controller does not have a program!") return end
+
 	if v1 and self.program ~= nil and self.operationState ~= 0 then
 		self.programTimer = self.programTimer + dt
-
-		stages = self.program
 
 
 		if self.operationState ~= prevState then

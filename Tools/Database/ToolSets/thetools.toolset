@@ -7,6 +7,7 @@
          "previewRotation" : [ 1, 0, 0, 0, 0, -1, 0, 1, 0 ],
          "script" : {
             "class" : "ServiceTool",
+            "data" : {},
             "file" : "$CONTENT_DATA/Scripts/ServiceTool.lua"
          },
          "showInInventory" : false,
