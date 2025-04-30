@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>«Controllers» [SC addon] docs</title>
+  <meta name="title" content="«Controllers» [SC addon] docs">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/basic-style.css">
+    <link rel="stylesheet" type="text/css" href="css/apireference.css">
+    <link rel="stylesheet" type="text/css" href="css/docspage.css">
+  <link href="libs/prism-js/prism.css" rel="stylesheet">
+</head>
+
+<body>
+  <aside class="bd-aside sticky-xl-top text-muted align-self-start mb-3 mb-xl-5 px-2" style="padding-top: 7rem;">
+    <h2 id="docs-title" class="h6 pt-4 pb-3 mb-4 border-bottom">«Controllers» [SC addon] docs</h2>
+    <nav class="sidebar">
+      <ul class="list-unstyled">
+        <li class="my-2">
+          <button class="btn btn-toggle align-items-center rounded" data-bs-toggle="collapse" data-bs-target="#intro-collapse" aria-expanded="false">Introduction</button>
+          <div class="collapse" id="intro-collapse">
+            <ul class="list-unstyled ps-3">
+              <li><a class="d-inline-flex align-items-center rounded" href="#intro">Information</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="my-2">
+          <button class="btn btn-toggle align-items-center rounded" data-bs-toggle="collapse" data-bs-target="#components-collapse" aria-expanded="false">Components</button>
+          <div class="collapse" id="components-collapse">
+            <ul class="list-unstyled ps-3">
+              <li><a class="d-inline-flex align-items-center rounded" href="#c-dayLightSensor">DayLightSensor</a></li>
+              <li><a class="d-inline-flex align-items-center rounded" href="#c-ScriptableController">ScriptableController</a></li>
+              <li><a class="d-inline-flex align-items-center rounded" href="#c-SmartController">SmartController</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+  <div class="bd-documentation container-fluid">
+    <section id="content">
+      <h2 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3">Introduction</h2>
+
+      <article class="doc-article" id="intro">
+        <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
+          <h3>Information</h3>
+        </div>
+        <div>
+          <p>
+            It's a small addon for the SComputers mod [FORK] in Scrap Mechanic game, which will allow you to implement any mechanisms using programmable controllers
+            that allow you to change the rotation angles of each bearing, and even the length of the connected pistons!
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section id="components">
+      <h2 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3">Components</h2>
+
+      <article class="doc-article" id="c-dayLightSensor">
+        <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
+          <h3>DayLightSensor</h3>
+        </div>
+        <div>
+          <p>
+            The <b>DayLightSensor</b> can be used to automate energy-saving systems and enhance security measures in structures. For instance, it enables the construction of buildings that only consume energy during daylight hours, optimizing the use of resources. Additionally, it can be integrated into automated lighting systems, ensuring lights are only activated when necessary.
+          </p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Method and args</th>
+                <th scope="col">Method description</th>
+                <th scope="col">First appearance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span><code class="language-js nobg">DayLightSensor.isSkyNotObstructed():boolean</code></span></td>
+                <td>Checks if the sky is not obstructed for the sensor. Returns true if the sensor has a clear view of the sky, false otherwise. This method is crucial for outdoor applications where the sensor's performance might be affected by physical obstructions like buildings or trees.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">DayLightSensor.isDay():boolean</code></span></td>
+                <td>Determines if the sensor perceives the current time as day. Returns true during daylight hours, based on the game world's day-night cycle. This can be used to activate or deactivate machines and systems during the day.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">DayLightSensor.isNight():boolean</code></span></td>
+                <td>Determines if the sensor perceives the current time as night. Returns true during nighttime hours, according to the game world's day-night cycle. This function can be particularly useful for activating lighting systems or triggering events that should only occur at night.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+            </tbody>
+          </table>
+          <h2>Config</h2>
+          <p>There are no configurable settings for the DayLightSensor component as its functionality is solely based on environmental conditions. However, users can combine its outputs with other logic components to create complex behaviors in their creations.</p>
+          <p><b>Note: The effectiveness of the DayLightSensor depends on its placement in the game world. Ensure it is placed in an area where its view of the sky is unobstructed for accurate readings.</b></p>
+          <h2>Using</h2>
+          <h5>Simple example (2 connected bearings, and 2 connected pistons)</h5>
+                <pre>
+    <code class="language-lua line-numbers" data-prismjs-copy="Copy" data-prismjs-copy-success="Success!" data-prismjs-copy-error="Error">
+sensor = getComponents("dayLightSensor")[1]
+if controller == nil then return end
+
+-- Checking
+if sensor.isSkyNotObstructed() then
+    print(sensor.isNight())
+else
+    print("Sky is obstructed!")
+end</code>
+</pre>
+        </div>
+      </article>
+      <article class="doc-article" id="c-ScriptableController">
+        <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
+          <h3>ScriptableController</h3>
+        </div>
+        <div>
+          <p>
+            The <b>ScriptableController</b> is a versatile component in Scrap Mechanic that enables the automation and dynamic control of machinery and robotic constructs. It can precisely manipulate the rotation of bearings and the extension of pistons, allowing for the creation of complex, articulated structures and mechanisms. From simple automated doors to intricate transforming robots, the ScriptableController serves as the brain behind many inventive creations within the game.
+          </p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Method and args</th>
+                <th scope="col">Method description</th>
+                <th scope="col">First appearance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.setActive(state:boolean)</code></span></td>
+                <td>Initiates or halts the operation of the controller. It returns true irrespective of the controller's current resource availability. To accurately determine the controller's operational state or resource availability, use: <code class="language-js nobg">ScriptableController.isActive()</code>.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.isActive():boolean</code></span></td>
+                <td>Reveals whether the controller is currently activated. This status check is crucial for troubleshooting and synchronizing multiple controllers within larger systems, ensuring coordinated operations.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.isWorkAvailable():boolean</code></span></td>
+                <td>Indicates the presence of necessary resources (e.g., fuel, batteries) for the controller to function. This method is vital for managing energy-efficient designs and ensuring machines operate only when they have adequate resources.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.getAvailableBatteries():number</code></span></td>
+                <td>Reports the quantity of batteries available for the controller's operations. This information is key for power management and planning the deployment of battery-dependent devices.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.getCharge</code></span></td>
+                <td>Retrieves the current charge level of the controller.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.getChargeDelta</code></span></td>
+                <td>Returns the rate at which the charge is changing.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.getChargeAdditions</code></span></td>
+                <td>Fetches additional charge-related parameters relevant to the controller.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.getSoundType():number</code></span></td>
+                <td>Retrieves the type of sound effect associated with the controller.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.setSoundType(number)</code></span></td>
+                <td>Sets the sound type for the controller, influencing the audio feedback of mechanical actions.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.getVelocity():number</code></span></td>
+                <td>Retrieves the current velocity at which the controller manipulates bearings. This is critical for tuning the speed of mechanical movements to match the desired pace of actions in machines and robots.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.setVelocity(number)</code></span></td>
+                <td>Adjusts the velocity of bearing rotations. By fine-tuning this setting, creators can achieve precise control over the speed of mechanical parts, enhancing the performance of their constructs.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.getStrength():number</code></span></td>
+                <td>Returns the force applied by the controller on the bearings. This parameter is essential for ensuring that mechanical movements have sufficient power.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.setStrength(number)</code></span></td>
+                <td>Sets the strength of the controller's actions on bearings, allowing for the adjustment of force to match the requirements of various mechanical applications.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.getBearingsCount():number</code></span></td>
+                <td>Counts the bearings linked to the controller, aiding in the management and debugging of complex constructs by providing a quick inventory of controlled bearings.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.getAllBearingsAngle():table</code></span></td>
+                <td>Produces a table detailing the current angular positions of all bearings. This is invaluable for diagnostics and synchronization tasks, offering a comprehensive overview of the mechanical state.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.getBearingAngle(id:number)</code></span></td>
+                <td>Retrieves the angle of a specific bearing, allowing for precise monitoring and adjustments to individual components within a mechanism.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.setBearingAngle(id:number, angle:number)</code></span></td>
+                <td>Sets a particular bearing's rotation angle. This method is fundamental for creating dynamic and responsive movements within mechanical constructs.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.resetAllBearingsAngle()</code></span></td>
+                <td>Reverts all bearings to their original angular positions. This function is useful for resetting mechanisms to a known state before initiating a sequence of operations.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.getPistonsCount():number</code></span></td>
+                <td>Determines the number of pistons connected to the controller. This aids in the configuration and troubleshooting of piston-operated elements within creations.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.getAllPistonsLength():table</code></span></td>
+                <td>Provides a table with the current extension lengths of all pistons. This feature is crucial for assessing and coordinating the movements of multiple pistons in complex systems.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.getPistonLength(id:number)</code></span></td>
+                <td>Returns the extension length of a specific piston, offering precise control over individual piston adjustments for tailored mechanical actions.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.setPistonLength(id:number, length:number)</code></span></td>
+                <td>Adjusts the length of a piston, enabling the customization of piston-driven movements to suit various engineering and design needs.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">ScriptableController.resetAllPistonsLength()</code></span></td>
+                <td>Resets all pistons to their initial lengths. This function is useful for ensuring that mechanical systems start from a consistent baseline for each operation cycle.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+            </tbody>
+          </table>
+          <h2>Using</h2>
+          <p>Below is a simple example showcasing the setup and basic operation of two connected bearings and pistons using the scriptableController:</p>
+                <pre>
+    <code class="language-lua line-numbers" data-prismjs-copy="Copy" data-prismjs-copy-success="Success!" data-prismjs-copy-error="Error">
+controller = getComponents("scriptableController")[1]
+if controller == nil then return end
+
+-- Configuring
+controller.setVelocity(30)
+controller.setStrength(30)
+controller.setActive(true)
+
+-- Bearings
+controller.setBearingAngle(1, math.rad(math.random(140, 160)))
+controller.setBearingAngle(2, math.rad(220))
+
+-- Pistons
+controller.setPistonLength(1, 4)
+controller.setPistonLength(2, 10)
+
+print()
+print("Bearing index 1 angle in degrees: " .. math.deg(controller.getBearingAngle(1)))
+print("Bearings count: " .. controller.getBearingsCount() .. "; Pistons count: " .. controller.getPistonsCount())</code>
+    </pre>
+        </div>
+      </article>
+      <article class="doc-article" id="c-SmartController">
+        <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
+          <h3>SmartController</h3>
+        </div>
+        <div>
+          <p>
+            The <b>SmartController</b> is an advanced control unit in Scrap Mechanic designed for creating intricate movement sequences for pistons and bearings. By defining a program inside it, users can orchestrate precise mechanical actions, making it ideal for automated robotic constructs, complex doors, and synchronized mechanical systems.
+          </p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Method and args</th>
+                <th scope="col">Method description</th>
+                <th scope="col">First appearance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.start(program:table)</code></span></td>
+                <td>Initiates the execution of a predefined movement sequence. The <span>program</span> parameter must be a dictionary defining the logic of movement. If a stage in the program does not include a delays field, the default delay of {1, 1} is applied.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.stop()</code></span></td>
+                <td>Reverses the current operation of the controller, causing all active movements to run in the opposite direction. To completely stop the controller, use code <code class="language-lua nobg">SmartController.setActive(false)</code>.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.isActive():boolean</code></span></td>
+                <td>Returns whether the controller is currently active, allowing for checks in automated systems.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.setActive(state:boolean|number)</code></span></td>
+                <td>Enables or disables the controller. Accepts either a boolean value or a number (where non-zero values are interpreted as <code class="language-js nobg">true</code>).</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.isWorkAvailable():boolean</code></span></td>
+                <td>Checks whether the controller has the necessary power (e.g., energy or batteries) to function.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.getAvailableBatteries():number</code></span></td>
+                <td>Returns the number of available batteries. In creative mode, this always returns an infinite value.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.getCharge():number</code></span></td>
+                <td>Retrieves the current charge level of the controller.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.getChargeDelta():number</code></span></td>
+                <td>Returns the rate at which the charge is changing.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.getChargeAdditions():number</code></span></td>
+                <td>Fetches additional charge-related parameters relevant to the controller.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.getVelocity():number</code></span></td>
+                <td>Retrieves the master velocity at which the controller operates.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.setVelocity(value:number)</code></span></td>
+                <td>Sets the master velocity. The value is clamped between -maxMasterVelocity and maxMasterVelocity to ensure controlled speed regulation.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.getStrength():number</code></span></td>
+                <td>Returns the maximum impulse force exerted by the controller.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.setStrength(value:number)</code></span></td>
+                <td>Adjusts the impulse strength, ensuring movements are executed with the appropriate force. Values are clamped between 0 and mImpulse.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.getBearingsCount():number</code></span></td>
+                <td>Returns the number of bearings currently controlled by the SmartController.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.getPistonsCount():number</code></span></td>
+                <td>Returns the number of pistons currently connected to the controller.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.getSoundType():number</code></span></td>
+                <td>Retrieves the type of sound effect associated with the controller.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+                <td><span><code class="language-js nobg">SmartController.setSoundType(value:number)</code></span></td>
+                <td>Sets the sound type for the controller, influencing the audio feedback of mechanical actions.</td>
+                <td><a>v1.0</a></td>
+              </tr>
+              <tr>
+            </tbody>
+          </table>
+          <h2>Using</h2>
+          <h4>Example 1: Smart Controller - Simple Program</h4>
+          <p>Below is a example demonstrating how to configure and start a simple movement sequence using SmartController:</p>
+          <h5>Good practice:</h5>
+                <pre>
+    <code class="language-lua line-numbers" data-prismjs-copy="Copy" data-prismjs-copy-success="Success!" data-prismjs-copy-error="Error">
+controller = getComponents("smartController")[1]
+if controller == nil then return end
+
+-- Configuring
+controller.setVelocity(20)
+controller.setStrength(1000)
+controller.setSoundType(0)
+controller.setActive(true)
+
+function onStart()
+    -- Execute the program (direct order)
+    controller.start({
+        -- Stages (step-by-step)
+        [1] = { -- Synchronized actions
+            ["pistons"] = {
+                -- [pistonIndex] = {lengthBefore, lengthAfter}
+                [{1,25}] = {1, 4}  -- Short notation (1-25 indexes pistons)
+            },
+            ["bearings"] = {
+                -- [bearingIndex] = {degreeBefore, degreeAfter}
+                [1] = {0, 90}
+            }
+        },
+        [2] = {
+            ["pistons"] = {
+                [{1,25}] = {4, 1}
+            },
+            ["bearings"] = {
+                [1] = {90, 0},
+            },
+
+            -- Delays when [onDirectDelay, onReverseDelay] (start/stop delays)
+            -- If a stage in the program does not include a ["delays"] field, the default delay of {1, 1} is applied.
+            ["delays"] = {2, 2}
+        }
+    })
+end
+
+function onStop()
+    -- Execute the program (reversed order)
+    controller.stop()
+end
+
+_enableCallbacks = true</code>
+    </pre>
+    <h5 style="color: yellow !important;">B A D practice:</h5>
+                <pre>
+    <code class="language-lua line-numbers" data-prismjs-copy="Copy" data-prismjs-copy-success="Success!" data-prismjs-copy-error="Error">
+controller = getComponents("smartController")[1]
+
+controller.setVelocity(20)
+controller.setStrength(10000)
+controller.setSoundType(0)
+controller.setActive(true)
+
+function onStart()
+    controller.start({
+        [1] = {
+            ["pistons"] = {
+                [1] = {1, 4}, -- Very long and not optimized!
+                [2] = {1, 4},
+                [3] = {1, 4},
+                [4] = {1, 4},
+                [5] = {1, 4},
+                [6] = {1, 4},
+                [7] = {1, 4},
+                [8] = {1, 4},
+                [9] = {1, 4},
+                [10] = {1, 4},
+                [11] = {1, 4},
+                [12] = {1, 4},
+                [13] = {1, 4},
+                [14] = {1, 4},
+                [15] = {1, 4},
+                [16] = {1, 4},
+                [17] = {1, 4},
+                [18] = {1, 4},
+                [19] = {1, 4},
+                [20] = {1, 4},
+                [21] = {1, 4},
+                [22] = {1, 4},
+                [23] = {1, 4},
+                [24] = {1, 4}
+                [25] = {1, 4}
+            },
+            ["bearings"] = {
+                [1] = {0, 90}
+            }
+        },
+        [2] = {
+            ["pistons"] = {
+                [1] = {4, 1},
+                [2] = {4, 1},
+                [3] = {4, 1},
+                [4] = {4, 1},
+                [5] = {4, 1},
+                [6] = {4, 1},
+                [7] = {4, 1},
+                [8] = {4, 1},
+                [9] = {4, 1},
+                [10] = {4, 1},
+                [11] = {4, 1},
+                [12] = {4, 1},
+                [13] = {4, 1},
+                [14] = {4, 1},
+                [15] = {4, 1},
+                [16] = {4, 1},
+                [17] = {4, 1},
+                [18] = {4, 1},
+                [19] = {4, 1},
+                [20] = {4, 1},
+                [21] = {4, 1},
+                [22] = {4, 1},
+                [23] = {4, 1},
+                [24] = {4, 1}
+                [25] = {4, 1}
+            },
+            ["bearings"] = {
+                [1] = {90, 0},
+            },
+
+            ["delays"] = {2, 2}
+        }
+})
+end
+
+function onStop()
+    controller.stop()
+end
+
+_enableCallbacks = true</code>
+    </pre>
+            <h5>Example 2: Smart Controller - Various Program Configurations</h5>
+            <p>A code example showcasing various possible program configurations:</p>
+            <pre>
+                <code class="language-lua" data-prismjs-copy="Copy" data-prismjs-copy-success="Success!" data-prismjs-copy-error="Error">
+controller = getComponents("smartController")[1]
+if controller == nil then return end
+
+-- Configuring
+controller.setVelocity(20)
+controller.setStrength(1000)
+controller.setSoundType(0)
+controller.setActive(true)
+
+function onStart()
+    -- Execute the program (direct order)
+    controller.start({
+        -- Stages (step-by-step)
+        [1] = { -- Synchronized actions
+            ["pistons"] = {
+                -- [pistonIndex] = {lengthBefore, lengthAfter}
+                [3] = {1, 7}, -- Maybe we should change it to a short notation? The example is below :D
+                [4] = {1, 7}
+            },
+            ["bearings"] = {
+                -- [bearingIndex] = {degreeBefore, degreeAfter}
+                [{1,2}] = {90, 90} -- Short notation (1-2 indexes bearings)
+                -- [1] = {90, 90}, -- Long notation
+                -- [2] = {90, 90} -- Loooong
+            }
+        },
+        [2] = {
+            ["pistons"] = {
+                [{1,2}] = {1, 4}
+            },
+            ["bearings"] = {
+                [{1,2}] = {180, 180}
+            },
+
+            -- Delays when [onDirectDelay, onReverseDelay] (start/stop delays)
+            -- If a stage in the program does not include a 
+            -- ["delays"] field, the default delay of {1, 1} is applied.
+            ["delays"] = {2, 2}
+        },
+        [3] = {
+            -- Pistons are not affected (saved state from stage 2)
+            ["bearings"] = {
+                [1] = {45, 45},
+                [2] = {45, 45}
+            },
+
+            ["delays"] = {2, 2}
+        }
+    })
+end
+
+function onStop()
+    -- Execute the program (reversed order)
+    controller.stop()
+end
+
+_enableCallbacks = true</code>
+                </pre>
+        </div>
+      </article>
+    </section>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script src="libs/prism-js/prism.js"></script>
+
+  <div>
+    <h5>Design and docs by TheDIMONDK. 2025</h5>
+  </div>
+</body>
+
+</html>

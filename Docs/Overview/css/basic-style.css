@@ -1,0 +1,184 @@
+body {
+  background-color: #0085b2;
+  color: #009fd5;
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+.container-content {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 60px;
+}
+
+.nobg {
+  background-color: transparent !important;
+}
+
+p {
+  color: white;
+}
+
+h1 {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 1000;
+  font-size: 40px;
+  color: white;
+}
+
+h2 {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  color: white;
+}
+
+h3 {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  color: white;
+}
+
+h4 {
+  color: white !important;
+  font-weight: 600;
+  font-size: 28px !important;
+}
+
+h5 {
+  color: white !important;
+  font-size: 24px !important;
+}
+
+li {
+  color: white !important;
+  font-family: 'Ubuntu', sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 20px !important;
+  margin-left: 20px;
+}
+
+/* Цвет фона скроллбара */
+::-webkit-scrollbar {
+    background-color: #0085b2;
+}
+
+/* Цвет полосы прокрутки */
+::-webkit-scrollbar-thumb {
+    background-color: #14404f;
+    border-radius: 50px;
+}
+
+/* Стиль для угловых элементов */
+::-webkit-scrollbar-corner {
+  background-color: #0085b2;
+  border-radius: 6px;
+}
+
+/* СТРЕЛОЧКА РЕДИРЕКТА */
+.redirect-link {
+  text-decoration: none;
+}
+
+.redirect-link .link-arrow {
+  margin-left: 0.5rem;
+}
+
+/* ТАБЛИЦЫ */
+.table {
+  width: 100% !important;
+  margin-bottom: 1rem !important;
+  color: #212529 !important;
+  background-color: transparent !important;
+  text-align: left !important;
+  border-collapse: collapse !important;
+  font-size: 1.1rem!important;
+}
+
+.table > thead {
+  background-color: #113e59 !important;
+  color: #fdffd6!important;
+}
+
+.table > tbody > tr:nth-child(odd) {
+  background-color: #1a4b63 !important;
+}
+
+.table > tbody > tr:nth-child(even) {
+  background-color: #23536A !important;
+}
+
+.table > tbody > tr:hover {
+  background-color: #1a4760 !important;
+  color: #00536F !important;
+  transition: all 0.05s ease-in-out !important;
+}
+
+.table th, .table td {
+  padding: 0.75rem !important;
+  vertical-align: top !important;
+  border-top: 1px solid #113e59 !important;
+  border-bottom: none !important;
+  border-left: 1px solid #113e59 !important;
+  border-right: 1px solid #113e59 !important;
+  color: white;
+}
+
+.table thead th {
+  vertical-align: bottom !important;
+  border-bottom: 2px solid #0f3851 !important;
+}
+
+.sidebar a {
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: .3125rem;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.sidebar a:hover,
+.sidebar a:focus {
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.sidebar .active {
+  font-weight: 700;
+  color: #d0f3ff;
+}
+
+
+.btn-toggle {
+  display: inline-flex;
+  color: #ffffff;
+  background-color: transparent;
+  align-items: center;
+  padding: .25rem .5rem;
+  font-weight: 600;
+  color: white;
+  border: 0;
+  font-size: 20px;
+}
+
+.btn-toggle:hover,
+.btn-toggle:focus {
+  color: #ffffff;
+  background-color: #006b8e5d;
+  box-shadow: 0 0 0 1px #00536fa9;
+}
+
+.btn-toggle::before {
+  width: 1.25em;
+  line-height: 0;
+  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+  transition: transform .35s ease;
+
+  transform-origin: .5em 50%;
+}
+
+.btn-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}

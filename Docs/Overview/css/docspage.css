@@ -1,0 +1,110 @@
+body {
+  scroll-behavior: smooth;
+}
+
+.bd-heading a::before {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: .25rem;
+  content: "";
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%25230d6efd' viewBox='0 0 16 16'%3E%3Cpath d='M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1H2a2 2 0 0 1 2-2z'/%3E%3Cpath d='M2 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H2zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H2zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H2z'/%3E%3Cpath fill-rule='evenodd' d='M8.646 5.646a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L10.293 8 8.646 6.354a.5.5 0 0 1 0-.708zm-1.292 0a.5.5 0 0 0-.708 0l-2 2a.5.5 0 0 0 0 .708l2 2a.5.5 0 0 0 .708-.708L5.707 8l1.647-1.646a.5.5 0 0 0 0-.708z'/%3E%3C/svg%3E");
+  background-size: 1em;
+}
+
+.bd-heading + div > * + * {
+  margin-top: 3rem;
+}
+
+.bd-heading h3 {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 28px;
+  color: white;
+}
+
+#docs-title {
+  font-size: 26px;
+  color: #ffffff;
+}
+
+/* Страница документации */
+@media (min-width: 1200px) {
+    body {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr 4fr 1fr;
+      grid-template-rows: auto;
+    }
+  
+    .bd-header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 1030;
+      grid-column: 1 / span 3;
+      padding-left: 3%;
+      padding-right: 3%;
+    }
+  
+    .bd-footer {
+      position: static;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index: 1030;
+      grid-column: 1 / span 3;
+      align-items: flex-start; /* Выровнять по верхнему краю */
+    }
+  
+    .bd-aside,
+    .bd-documentation {
+      padding-top: 4rem;
+    }
+  
+    .bd-documentation,
+    .bd-documentation section,
+    .bd-documentation article {
+      display: inherit;
+      gap: inherit;
+      grid-template-columns: 1fr 4fr;
+      grid-column: 1 / span 2;
+      grid-template-rows: auto;
+    }
+  
+    .bd-documentation section,
+    .bd-documentation section > h2 {
+      top: 4.5rem; /* Высота сдвига для текста категории */
+      scroll-margin-top: 4rem;
+    }
+  
+    .bd-documentation section > h2::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: -2rem; /* Сдвиг вверх для затемнения */
+      left: 0;
+      z-index: -1;
+      content: "";
+      background-image: linear-gradient(to bottom, #0085b2 calc(100% - 5rem), rgba(255, 255, 255, 0));
+    }
+  
+    .bd-documentation article,
+    .bd-documentation .bd-heading {
+      top: 10rem;
+      scroll-margin-top: 10rem;
+    }
+  
+    .bd-documentation .bd-heading {
+      z-index: 1;
+    }
+  
+    .bd-aside {
+      grid-area: 1 / 3;
+      scroll-margin-top: 4rem;
+    }
+
+    .doc-article {
+      padding-bottom: 10em;
+    }
+  }

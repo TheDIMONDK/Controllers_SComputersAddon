@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+mark {
+  font-family: 'Ubuntu', sans-serif;
+  background-color: rgb(0, 105, 141) !important;
+  padding: 0.1em 0.25em !important;
+  color: #ffffff !important;
+  border-radius: 5px;
+}
+
+/* ПРИМЕРЫ КОДА */
+pre[class*=language-] {
+  background: #113e59 !important;
+}
+
+/* Контент tabcontrol */
+.nav-tabs .nav-item {
+  margin-left: 0 !important;
+  margin-right: 5px !important;
+}
+
+/* Кнопки элемента управления вкладками кода */
+.nav-tabs .nav-item .nav-link {
+  color: #ffffff !important;
+  background-color: #105885 !important;
+  border-color: transparent !important;
+  justify-content: start !important;
+}
+.nav-tabs .nav-item .nav-link:hover,
+.nav-tabs .nav-item .nav-link:focus {
+  border-color: transparent !important;
+  color: #ffffff !important;
+  background-color: #215270 !important;
+}
+.nav-tabs .nav-item .nav-link:focus.active,
+.nav-tabs .nav-item .nav-link.active {
+  border-color: transparent !important;
+  color: #ffffff !important;
+  background-color: #113e59 !important;
+}
+
+/* Уберём полосу под кнопками */
+ul.nav-tabs {
+  border: none;
+}
+/* Уберём полосу под кнопками */
+ul.nav-tabs {
+  border: none;
+  margin-bottom: 0;
+  padding: 0;
+}
+/* Уберём отступ сверху у блока с примерами кода */
+.nav-tabs ~ .tab-content {
+  margin-top: -10px;
+}
+
+/* ПРИМЕРЫ */
+.scrollspy-example {
+  position: relative;
+  height: 200px;
+  margin-top: .5rem;
+  overflow: auto;
+}
+
+[id="modal"] .bd-example .btn,
+[id="buttons"] .bd-example .btn,
+[id="tooltips"] .bd-example .btn,
+[id="popovers"] .bd-example .btn,
+[id="dropdowns"] .bd-example .btn-group,
+[id="dropdowns"] .bd-example .dropdown,
+[id="dropdowns"] .bd-example .dropup,
+[id="dropdowns"] .bd-example .dropend,
+[id="dropdowns"] .bd-example .dropstart {
+  margin: 0 1rem 1rem 0;
+}
