@@ -1,4 +1,5 @@
-/TEMP
-/Cache
+TEMP/
+Cache/
 
 *.lnk
+.thumb/
